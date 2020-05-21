@@ -1,0 +1,12 @@
+﻿
+@{
+    var controllerName = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    ViewBag.Title = controllerName;
+    ViewBag.SmallTitle = "Important";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+    
+}
+
+<h2>Index</h2>
+

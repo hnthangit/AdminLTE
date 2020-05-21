@@ -1,0 +1,109 @@
+﻿
+@{
+    ViewBag.Title = "Product";
+}
+
+<div class="box box-info">
+    <div class="box-body">
+        <div class="input-group input-group-sm">
+            <input type="text" class="form-control" placeholder="Input search values....">
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-info btn-flat">
+                    <i class="fa fa-search"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+
+</div>
+<div class="container-fluid row" style="margin-bottom:10px">
+    <div class="col-sm-8">
+        There are <b>1,000</b> Product found. Page 1/100.
+    </div>
+    <div class="col-md-4 text-right">
+
+        <div class="btn-group">
+            <a href="~/Product/Input" class="btn btn-sm btn-success">Add Product</a>
+            <button type="button" class="btn btn-sm btn-danger">Delete Product</button>
+        </div>
+
+    </div>
+</div>
+<div class="box box-success">
+    <div class="box-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="sw-30">
+                        <input type="checkbox" />
+                    </th>
+                    <th class="sw-50">#</th>
+                    <th class="sw-100">Product Name</th>
+                    <th class="sw-50">Supplier ID</th>
+                    <th class="sw-50">Category ID</th>
+                    <th class="sw-200">Infomation</th>
+                    <th class="auto">Descriptions</th>
+                    <th class="sw-200">Images</th>
+                    <th class="sw-100"></th>
+
+                </tr>
+            </thead>
+
+            <tbody class="text-align">
+                @{
+                    for (int i = 1; i <= 3; i++)
+                    {
+
+                        <tr>
+                            <td>
+                                <input type="checkbox" />
+                            </td>
+                            <td>
+                                @i
+                            </td>
+                            <td>
+                                <span>Chai</span>
+
+                            </td>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                2
+                            </td>
+                            <td>
+                                <span class="std-block"><i class="fa fa-info"></i>10 boxes x 20 bags</span>
+                                <span class="std-block"><i class="fa fa-dollar"></i>18.00</span>                                
+                            </td>
+                            <td>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </td>
+                            <td>
+                                <img style="width:200px; height:200px;" src="~/Themes/AdminLTE/dist/img/avatar5.png" />
+                            </td>
+                            <td class="text-center">
+                                <!-- Button trigger modal -->
+                                <a href="~/Product/Input/@i" class="btn btn-primary center-block">
+                                    <i class="fa fa-info"></i>
+                                </a>
+
+
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+        <div class="box-footer clearfix">
+            <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="#">«</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">»</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+

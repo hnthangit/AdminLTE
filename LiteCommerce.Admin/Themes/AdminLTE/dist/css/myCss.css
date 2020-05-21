@@ -1,0 +1,37 @@
+﻿.sw-30{
+    width:30px;
+}
+.sw-200 {
+    width: 200px;
+}
+.sw-300 {
+    width: 300px;
+}
+.sw-auto {
+    width: auto;
+}
+.sw-50{
+    width: 50px;
+}
+.sw-100 {
+    width: 100px;
+}
+.td-name {
+    font-size: 20px;
+    font-weight: bold;
+}
+.std-block{
+    display:block;
+}
+.td-contry {
+    color: red;
+    font-size: 17px;
+}
+.cnp-name {
+    font-size: 20px;
+    font-weight: bold;
+}
+.adr-cnt {
+    color: red;
+    font-size: 17px;
+}

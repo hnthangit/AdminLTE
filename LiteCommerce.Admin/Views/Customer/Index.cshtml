@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "Customer";
+}
+
+<div class="box box-info">
+    <div class="box-body">
+        <div class="input-group input-group-sm">
+            <input type="text" class="form-control" placeholder="Input search values....">
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-info btn-flat">
+                    <i class="fa fa-search"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+
+</div>
+<div class="container-fluid row" style="margin-bottom:10px">
+    <div class="col-sm-8">
+        There are <b>1,000</b> Customer found. Page 1/100.
+    </div>
+    <div class="col-md-4 text-right">
+
+        <div class="btn-group">
+            <a href="~/Customer/Input" class="btn btn-sm btn-success">Add Customer</a>
+            <button type="button" class="btn btn-sm btn-danger">Delete Customer</button>
+        </div>
+
+    </div>
+</div>
+<div class="box box-success">
+    <div class="box-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th class="sw-30">
+                        <input type="checkbox" />
+                    </th>
+                    <th class="sw-50">#</th>
+                    <th class="sw-auto">Name</th>
+                    <th class="sw-auto">Address</th>
+                    <th class="sw-200">Contact Info</th>
+                    <th class="sw-100"></th>
+
+                </tr>
+            </thead>
+
+            <tbody class="text-align">
+                @{
+                    for (int i = 1; i <= 3; i++)
+                    {
+
+                        <tr>
+                            <td>
+                                <input type="checkbox" />
+                            </td>
+                            <td>
+                                @i
+                            </td>
+                            <td>
+                                <span class="text-primary cnp-name">Alfreds Futterkiste</span>
+                                <br />Sales Representative: <b>Maria Anders</b>
+
+                            </td>
+                            <td>
+                                Avda. de la Constitución 2222<br />
+                                <span class="adr-cnt">México D.F. - Mexico</span>
+                            </td>
+                            <td>
+                                <span class="std-block"><i class="fa fa-phone"></i>(5) 555-4729</span>
+                                <span class="std-block"><i class="fa fa-fax"></i>(5) 555-3745</span>                                
+                            </td>
+                            <td class="text-center">
+                                <!-- Button trigger modal -->
+                                <a href="~/Customer/Input/@i" class="btn btn-primary center-block">
+                                    <i class="fa fa-info"></i>
+                                </a>
+
+
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+        <div class="box-footer clearfix">
+            <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="#">«</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">»</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
