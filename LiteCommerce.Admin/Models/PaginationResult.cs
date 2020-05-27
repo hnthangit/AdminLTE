@@ -10,8 +10,7 @@
         {
             get
             {
-                int pageCount = 1;
-                pageCount = RowCount / PageSize;
+                int pageCount = RowCount / PageSize;
                 if (RowCount % PageSize > 0)
                 {
                     pageCount += 1;
@@ -19,5 +18,7 @@
                 return pageCount;
             }
         }
+
+        public string searchValue { get; set; }
     }
 }

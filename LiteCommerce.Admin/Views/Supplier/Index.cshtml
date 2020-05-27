@@ -1,15 +1,17 @@
 ﻿@model LiteCommerce.Admin.Models.SupplierPaginationResult
 @{
     ViewBag.Title = "Manage Supplier";
-    
+
 
 }
 <div class="box box-info">
     <div class="box-body">
         <form action="~/Supplier" method="get">
             <div class="input-group input-group-sm">
+                
 
-                <input name="searchValue" type="text" class="form-control" placeholder="Input search values....">
+                    <input name="searchValue" type="text" class="form-control" placeholder="Input search values...." value="@Model.searchValue">
+                
                 <span class="input-group-btn">
                     <button type="submit" class="btn btn-info btn-flat">
                         <i class="fa fa-search"></i>
@@ -84,12 +86,12 @@
         </table>
         <div class="box-footer clearfix">
             <ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="#">«</a></li>
+                <li><a href="~/Supplier/Index?page=1?searchValue=@Model.searchValue"><<</a></li>
                 @for (int page = 1; page <= Model.PageCount; page++)
                 {
-                    <li><a href="~/Supplier/Index?page=@page">@page</a></li>
+                    <li><a href="~/Supplier/Index?page=@page&searchValue=@Model.searchValue">@page</a></li>
                 }
-                <li><a href="#">»</a></li>
+                <li><a href="~/Supplier/Index?page=@Model.PageCount?searchValue=@Model.searchValue">>></a></li>
             </ul>
         </div>
     </div>

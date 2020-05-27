@@ -1,37 +1,37 @@
-﻿
+﻿@model LiteCommerce.DomainModels.Supplier
 @{
     
 }
-    <div class="box box-info">
-        <div class="box-body">
+<div class="box box-info">
+    <div class="box-body">
+
+        <form role="form">
             
-                
-            <form role="form">
                 <div class="box-body row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Contact Company</label>
-                            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Contact Company">
+                            <input type="hidden" name="SupplierID" value="@Model.SupplierID" />
+                            <label for="exampleInputPassword1">Company Name</label>
+                            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Contact Company" value="@Model.CompanyName">
                         </div>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Contact Name</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Contact Name">
+                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Contact Name" value="@Model.ContactName">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Contact Title</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Contact Title">
+                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Contact Title" value="@Model.ContactTitle">
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Address</label>
-                            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Address">
+                            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Address" value="@Model.Address">
                         </div>
-
                     </div>
                     <div class="col-sm-6">
                         <div class="row">
@@ -41,7 +41,7 @@
                                     <label for="exampleInputPassword1">Phone number</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                                        <input type="text" class="form-control" placeholder="Enter phonenumber">
+                                        <input type="text" class="form-control" placeholder="Enter phonenumber" value="@Model.Phone">
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +50,7 @@
                                     <label for="exampleInputPassword1">Fax</label>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-fax"></i></span>
-                                        <input type="text" class="form-control" placeholder="Enter Fax">
+                                        <input type="text" class="form-control" placeholder="Enter Fax" value="@Model.Fax">
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +59,7 @@
                             <label for="exampleInputPassword1">HomePage</label>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-home"></i></span>
-                                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter HomePage">
+                                <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter HomePage" value="@Model.HomePage">
                             </div>
                         </div>
                         <div class="row">
@@ -72,24 +72,19 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">City</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter City">
+                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter City" value="@Model.City">
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
+            
+            <!-- /.box-body -->
 
-                <!-- /.box-body -->
-
-                <div class="box-footer pull-right">
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Save</button>
-                    <button type="reset" class="btn btn-white"><i class="fa fa-reset"></i>Cancel</button>
-                </div>
-            </form>
+            <div class="box-footer pull-right">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Save</button>
+                <button type="reset" class="btn btn-white"><i class="fa fa-reset"></i>Cancel</button>
             </div>
-        </div>
-
-    
-
-
+        </form>
+    </div>
+</div>

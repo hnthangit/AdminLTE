@@ -1,18 +1,21 @@
-﻿
+﻿@model LiteCommerce.Admin.Models.CategoryResult
 @{
     ViewBag.Title = "Catogory";
 }
 
 <div class="box box-info">
     <div class="box-body">
-        <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="Input search values....">
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-info btn-flat">
-                    <i class="fa fa-search"></i>
-                </button>
-            </span>
-        </div>
+        <form action="~/Category" method="get">
+            <div class="input-group input-group-sm">
+
+                <input name="searchValue" type="text" class="form-control" placeholder="Input search values...." value="@Model.searchValue">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-info btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
     </div>
 
 </div>
@@ -46,8 +49,7 @@
             </thead>
 
             <tbody class="text-align">
-                @{
-                    for (int i = 1; i <= 3; i++)
+                @foreach(var item in Model.Data)
                     {
 
                         <tr>
@@ -55,17 +57,17 @@
                                 <input type="checkbox" />
                             </td>
                             <td>
-                                @i
+                                @item.CategoryID
                             </td>
                             <td>
-                                <span class="text-primary cnp-name">Grains/Cereals</span>
+                                <span class="text-primary cnp-name">@item.CategoryName</span>
                             </td>
                             <td>
-                                <span>Sweet and savory sauces, relishes, spreads, and seasonings</span>
+                                <span>@item.Description</span>
                             </td>
                             <td class="text-center">
                                 <!-- Button trigger modal -->
-                                <a href="~/Category/Input/@i" class="btn btn-primary center-block">
+                                <a href="~/Category/Input/@item.CategoryID" class="btn btn-primary center-block">
                                     <i class="fa fa-info"></i>
                                 </a>
 
@@ -73,19 +75,11 @@
                             </td>
                         </tr>
                     }
-                }
+                
 
             </tbody>
         </table>
-        <div class="box-footer clearfix">
-            <ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="#">«</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">»</a></li>
-            </ul>
-        </div>
+        
     </div>
 </div>
 

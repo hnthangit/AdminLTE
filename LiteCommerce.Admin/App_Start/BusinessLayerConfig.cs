@@ -15,6 +15,7 @@ namespace LiteCommerce.Admin.App_Start
         {
             string connectionString = ConfigurationManager.ConnectionStrings["LiteCommerce"].ConnectionString;
             CatalogBLL.Innitialize(connectionString);
+            HumanResourceBLL.Initialize(connectionString);
             //TODO: Bổ sung việc khởi tao các BLL khác khi cần sử dụng
         }
     }

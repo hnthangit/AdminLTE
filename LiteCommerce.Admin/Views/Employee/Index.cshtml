@@ -1,22 +1,25 @@
-﻿@{
+﻿@model LiteCommerce.Admin.Models.EmployeePaginationResult
+@{
     ViewBag.Title = "Employee";
 }
 
 <div class="box box-info">
     <div class="box-body">
-        <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="Input search values....">
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-info btn-flat">
-                    <i class="fa fa-search"></i>
-                </button>
-            </span>
-        </div>
+        <form action="~/Employee" method="get">
+            <div class="input-group input-group-sm">
+                <input name="searchValue" type="text" class="form-control" placeholder="Input search values...." value="@Model.searchValue">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-info btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
     </div>
 </div>
 <div class="container-fluid row" style="margin-bottom:10px">
     <div class="col-sm-8">
-        There are <b>1,000</b> Employee found. Page 1/100.
+        There are <b>@Model.RowCount</b> Supplier found. Page @Model.Page/ @Model.PageSize.
     </div>
     <div class="col-md-4 text-right">
 
@@ -45,54 +48,54 @@
             </thead>
 
             <tbody class="text-align">
-                @{
-                    for (int i = 1; i <= 3; i++)
-                    {
+                @foreach (var item in Model.Data)
+                {
 
-                        <tr>
-                            <td>
-                                <input type="checkbox" />
-                            </td>
-                            <td>
-                                @i
-                            </td>
-                            <td>
-                                <span class="text-primary cnp-name">Last Name First name</span>
-                                <br />Title: Sales Representative
-                            </td>
-                            <td>
-                                507 - 20th Ave. E. Apt. 2A<br />
-                                <span class="adr-cnt">Seattle - USA</span>
-                            </td>
-                            <td>
-                                <span class="std-block"><i class="fa fa-phone"></i> (206) 555-9857</span>
-                                <span class="std-block"><i class="fa fa-at"></i> davolio.nancy@company.com</span>
-                                <span class="std-block"><i class="fa fa-birthday-cake"></i> 1959-01-07 00:00:00.000</span>
-                                <span class="std-block"><i class="fa fa-users"></i> 2002-05-31 00:00:00.000</span>
-                            </td>
-                            <td>
-                                Education includes a BA in psychology from Colorado State University in 1970.  She also completed "The Art of the Cold Call."  Nancy is a member of Toastmasters International.
-                            </td>
-                            <td>
-                                <img style="width:100px; height:100px;" src="~/Themes/AdminLTE/dist/img/avatar5.png" />
-                            </td>
-                            <td class="text-center">
-                                <!-- Button trigger modal -->
-                                <a href="~/Employee/Input/@i" class="btn btn-primary center-block">
-                                    <i class="fa fa-info"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    }
+                    <tr>
+                        <td>
+                            <input type="checkbox" />
+                        </td>
+                        <td>
+                            @item.EmployeeID
+                        </td>
+                        <td>
+                            <span class="text-primary cnp-name">@item.LastName @item.FirstName</span>
+                            <br />Title: @item.Title
+                        </td>
+                        <td>
+                            @item.Address<br />
+                            <span class="adr-cnt">@item.City - @item.Country</span>
+                        </td>
+                        <td>
+                            <span class="std-block"><i class="fa fa-phone"></i>@item.HomePhone</span>
+                            <span class="std-block"><i class="fa fa-at"></i>@item.Email</span>
+                            <span class="std-block"><i class="fa fa-birthday-cake"></i>@item.BirthDate</span>
+                            <span class="std-block"><i class="fa fa-users"></i>@item.HireDate</span>
+                        </td>
+                        <td>
+                            @item.Notes
+                        </td>
+                        <td>
+                            <img style="width:100px; height:100px;" src="~/Themes/AdminLTE/dist/img/avatar5.png" />
+                        </td>
+                        <td class="text-center">
+                            <!-- Button trigger modal -->
+                            <a href="~/Employee/Input/@item.EmployeeID" class="btn btn-primary center-block">
+                                <i class="fa fa-info"></i>
+                            </a>
+                        </td>
+                    </tr>
                 }
+                
             </tbody>
         </table>
         <div class="box-footer clearfix">
             <ul class="pagination pagination-sm no-margin pull-right">
                 <li><a href="#">«</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
+                @for (int page = 1; page <= Model.PageCount; page++)
+                {
+                    <li><a href="~/Employee/Index?page=@page&searchValue=@Model.searchValue">@page</a></li>
+                }
                 <li><a href="#">»</a></li>
             </ul>
         </div>

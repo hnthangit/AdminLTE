@@ -1,24 +1,27 @@
-﻿
+﻿@model LiteCommerce.Admin.Models.ShipperResult
 @{
     ViewBag.Title = "Shipper";
 }
 
 <div class="box box-info">
     <div class="box-body">
-        <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="Input search values....">
-            <span class="input-group-btn">
-                <button type="button" class="btn btn-info btn-flat">
-                    <i class="fa fa-search"></i>
-                </button>
-            </span>
-        </div>
+        <form action="~/Shipper" method="get">
+            <div class="input-group input-group-sm">
+
+                <input name="searchValue" type="text" class="form-control" placeholder="Input search values...." value="@Model.searchValue"> 
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-info btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
     </div>
 
 </div>
 <div class="container-fluid row" style="margin-bottom:10px">
     <div class="col-sm-8">
-        There are <b>1,000</b> Shipper found. Page 1/100.
+        There are <b>@Model.RowCount</b> Shipper found. Page @Model.Page/ @Model.PageCount.
     </div>
     <div class="col-md-4 text-right">
 
@@ -46,8 +49,7 @@
             </thead>
 
             <tbody class="text-align">
-                @{
-                    for (int i = 1; i <= 3; i++)
+                    @foreach(var item in Model.Data)
                     {
 
                         <tr>
@@ -55,17 +57,17 @@
                                 <input type="checkbox" />
                             </td>
                             <td>
-                                @i
+                                @item.ShipperID
                             </td>
                             <td>
-                                <span class="text-primary cnp-name">Speedy Express</span>
+                                <span class="text-primary cnp-name">@item.CompanyName</span>
                             </td>
                             <td>
-                                <span>(503) 555-9831</span>
+                                <span>@item.Phone</span>
                             </td>
                             <td class="text-center">
                                 <!-- Button trigger modal -->
-                                <a href="~/Shipper/Input/@i" class="btn btn-primary center-block">
+                                <a href="~/Shipper/Input/@item.ShipperID" class="btn btn-primary center-block">
                                     <i class="fa fa-info"></i>
                                 </a>
 
@@ -73,19 +75,10 @@
                             </td>
                         </tr>
                     }
-                }
+                
 
             </tbody>
-        </table>
-        <div class="box-footer clearfix">
-            <ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="#">«</a></li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">»</a></li>
-            </ul>
-        </div>
+        </table>        
     </div>
 </div>
 
