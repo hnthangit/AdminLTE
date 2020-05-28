@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace LiteCommerce.DomainModels
+﻿namespace LiteCommerce.DomainModels
 {
     public class Customer
     {

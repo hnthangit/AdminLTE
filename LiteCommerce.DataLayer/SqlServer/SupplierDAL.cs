@@ -30,7 +30,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         public int Add(Supplier data)
         {
             int supplierId = 0;
-            using(SqlConnection connection = new SqlConnection(this.connectionString))
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
                 connection.Open();
 
@@ -263,7 +263,7 @@ namespace LiteCommerce.DataLayer.SqlServer
                 cmd.CommandText = @"UPDATE Suppliers
                                     SET
                                         CompanyName = @CompanyName,
-                                        ContactName = @CompanyName,
+                                        ContactName = @ContactName,
                                         ContactTitle = @ContactTitle,
                                         Address = @Address,
                                         City = @City,
@@ -271,7 +271,7 @@ namespace LiteCommerce.DataLayer.SqlServer
                                         Phone = @Phone,
                                         Fax = @Fax,
                                         HomePage = @HomePage
-                                    WHERE 
+                                    WHERE
                                         SupplierID = @SupplierID;";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;

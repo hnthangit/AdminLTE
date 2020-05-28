@@ -3,15 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LiteCommerce.DataLayer.SqlServer
 {
     public class CustomerDAL : ICustomerDAL
     {
         private string connectionString;
+
         /// <summary>
         /// Hàm tạo khi gọi Hàm
         /// </summary>
@@ -20,8 +18,9 @@ namespace LiteCommerce.DataLayer.SqlServer
         {
             this.connectionString = connectionString;
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -74,8 +73,9 @@ namespace LiteCommerce.DataLayer.SqlServer
             }
             return customerId;
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -103,15 +103,16 @@ namespace LiteCommerce.DataLayer.SqlServer
             }
             return result;
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="customerID"></param>
         /// <returns></returns>
         public Customer Get(string customerID)
         {
             Customer data = null;
-            using(SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
@@ -121,7 +122,7 @@ namespace LiteCommerce.DataLayer.SqlServer
                 cmd.Connection = connection;
                 cmd.Parameters.AddWithValue("@customerID", customerID);
 
-                using(SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                 {
                     if (dbReader.Read())
                     {
@@ -143,8 +144,9 @@ namespace LiteCommerce.DataLayer.SqlServer
             }
             return data;
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
@@ -206,8 +208,9 @@ namespace LiteCommerce.DataLayer.SqlServer
             }
             return data;
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -229,7 +232,7 @@ namespace LiteCommerce.DataLayer.SqlServer
                                         Country = @Country,
                                         Phone = @Phone,
                                         Fax = @Fax,
-                                    WHERE 
+                                    WHERE
                                         CustomerID = @CustomerID;";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
@@ -251,8 +254,9 @@ namespace LiteCommerce.DataLayer.SqlServer
 
             return rowsAffected > 0;
         }
+
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
@@ -274,14 +278,10 @@ namespace LiteCommerce.DataLayer.SqlServer
 
                     cmd.Parameters.AddWithValue("@searchValue", searchValue);
                     rowCount = Convert.ToInt32(cmd.ExecuteScalar());
-
                 }
                 connection.Close();
-
             }
             return rowCount;
-
         }
     }
-
 }

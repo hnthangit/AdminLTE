@@ -1,15 +1,12 @@
 ﻿using LiteCommerce.BusiniessLayer;
 using LiteCommerce.DomainModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace LiteCommerce.Admin.Controllers
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [Authorize]
     public class EmployeeController : Controller
@@ -48,7 +45,7 @@ namespace LiteCommerce.Admin.Controllers
                 if (editEmployee == null)
                     return RedirectToAction("Index");
                 ViewBag.Title = "Edit Employee";
-            return View(editEmployee);
+                return View(editEmployee);
             }
         }
     }

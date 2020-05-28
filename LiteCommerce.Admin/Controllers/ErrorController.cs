@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace LiteCommerce.Admin.Controllers
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [Authorize]
     public class ErrorController : Controller
@@ -29,6 +24,5 @@ namespace LiteCommerce.Admin.Controllers
             Response.StatusCode = 404;  //you may want to set this to 200
             return View("ServerError");
         }
-
     }
 }

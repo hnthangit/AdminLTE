@@ -56,5 +56,22 @@ namespace LiteCommerce.Admin.Controllers
                 return View(editShipper);
             }
         }
+
+        public ActionResult InsertOrUpdate(FormCollection collection)
+        {
+            Shipper data = new Shipper();
+            data.ShipperID = Convert.ToInt32(Request.Form["shipperID"]);
+            data.CompanyName = Convert.ToString(Request.Form["companyName"]);
+            data.Phone = Convert.ToString(Request.Form["phone"]);
+            if (data.ShipperID == 0)
+            {
+                CatalogBLL.Shipper_Add(data);
+            }
+            else
+            {
+                CatalogBLL.Shipper_Update(data);
+            }
+            return RedirectToAction("Index", "Shipper");
+        }
     }
 }

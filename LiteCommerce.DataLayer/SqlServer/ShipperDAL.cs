@@ -30,19 +30,19 @@ namespace LiteCommerce.DataLayer.SqlServer
         public int Add(Shipper data)
         {
             int shipperId = 0;
-            using(SqlConnection connection = new SqlConnection(this.connectionString))
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = @"INSERT INTO Shippers
                                         (
                                         CompanyName,
-                                        Phone,
+                                        Phone
                                         )
                                         VALUES
                                         (
-                                        @CCompanyName,
-                                        @Phone,
+                                        @CompanyName,
+                                        @Phone
                                         );
                                         SELECT @@IDENTITY;";
                 cmd.CommandType = CommandType.Text;
@@ -55,7 +55,6 @@ namespace LiteCommerce.DataLayer.SqlServer
                 connection.Close();
             }
             return shipperId;
-
         }
 
         /// <summary>
@@ -221,8 +220,8 @@ namespace LiteCommerce.DataLayer.SqlServer
                 cmd.CommandText = @"UPDATE Shippers
                                     SET
                                         CompanyName = @CompanyName,
-                                        Phone = @Phone,
-                                    WHERE 
+                                        Phone = @Phone
+                                    WHERE
                                         ShipperID = @shipperID;";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;

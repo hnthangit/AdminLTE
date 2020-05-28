@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Security;
 
 namespace LiteCommerce.Admin.Controllers
 {
     /// <summary>
-    /// 
+    ///
     /// </summary>
     [Authorize]
     public class AccountController : Controller
@@ -43,6 +39,7 @@ namespace LiteCommerce.Admin.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Account");
         }
+
         /// <summary>
         /// Trang đăng nhập
         /// </summary>
@@ -50,7 +47,7 @@ namespace LiteCommerce.Admin.Controllers
         /// <param name="password"></param>
         /// <returns></returns>
         [AllowAnonymous]
-        public ActionResult Login(string email ="", string password ="")
+        public ActionResult Login(string email = "", string password = "")
         {
             if (Request.HttpMethod == "GET")
             {
@@ -58,8 +55,8 @@ namespace LiteCommerce.Admin.Controllers
             }
             else
             {
-                //TODO: 
-                if(email =="admin@abc.com" & password == "123")
+                //TODO:
+                if (email == "admin@abc.com" & password == "123")
                 {
                     FormsAuthentication.SetAuthCookie(email, false);
                     return RedirectToAction("Index", "Dashboard");

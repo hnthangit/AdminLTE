@@ -37,8 +37,9 @@ namespace LiteCommerce.Admin.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult Input(string id = "")
-        {            
+        {
             if (string.IsNullOrEmpty(id))
             {
                 ViewBag.Title = "Add new Supplier";
@@ -53,8 +54,95 @@ namespace LiteCommerce.Admin.Controllers
                     return RedirectToAction("Index");
                 ViewBag.Title = "Edit new Supplier";
                 return View(editSupplier);
-
             }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [HttpPost] // đây là 1 attribute
+        public ActionResult Input(Supplier data)
+        {
+            try
+            {
+                //TODO: xu li validate dữ liệu đầu vào
+                /// @Html.ValidationMessage("") : hiển thị lỗi theo key
+                /// @Html.ValidationSummary() : hiển thị danh sách các lỗi
+                
+                if (string.IsNullOrEmpty(data.CompanyName))
+                    ModelState.AddModelError("ErrorCompanyName", "Comany name is required");
+
+                #region Allow Null for Columns
+
+                if (string.IsNullOrEmpty(data.ContactName))
+                {
+                    data.ContactName = "";
+                }
+                if (string.IsNullOrEmpty(data.ContactTitle))
+                {
+                    data.ContactTitle = "";
+                }
+                if (string.IsNullOrEmpty(data.Address))
+                {
+                    data.Address = "";
+                }
+                if (string.IsNullOrEmpty(data.City))
+                {
+                    data.City = "";
+                }
+                if (string.IsNullOrEmpty(data.Phone))
+                {
+                    data.Phone = "";
+                }
+                if (string.IsNullOrEmpty(data.HomePage))
+                {
+                    data.HomePage = "";
+                }
+                if (string.IsNullOrEmpty(data.Fax))
+                {
+                    data.Fax = "";
+                }
+
+                #endregion Allow Null for Columns
+
+                if (!ModelState.IsValid)
+                {
+                    return View(data);
+                }
+                //TODO Xử lý để đưa dữ liệu theo database
+                if (data.SupplierID == 0)
+                {
+                    int supplierId = CatalogBLL.Supplier_Add(data);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    bool updateResult = CatalogBLL.Supplier_Update(data);
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message + ":" + ex.StackTrace);
+                return View(data);
+            }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="supplierIDs"></param>
+        /// <returns></returns>
+        public ActionResult Delete(string method = "", int[] supplierIDs = null)
+        {
+            if (supplierIDs != null)
+            {
+                CatalogBLL.Supplier_Delete(supplierIDs);
+            }
+            return RedirectToAction("Index");
         }
     }
 }
