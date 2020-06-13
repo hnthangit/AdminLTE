@@ -9,12 +9,17 @@ namespace LiteCommerce.BusiniessLayer
     /// </summary>
     public static class CatalogBLL
     {
+        #region Declare variable
+
         private static ISupplierDAL SupplierDB { get; set; }
         private static ICustomerDAL CustomerDB { get; set; }
         private static IShipperDAL ShipperDB { get; set; }
         private static ICategoryDAL CategoryDB { get; set; }
         private static IProductDAL ProductDB { get; set; }
-        private static IOrderDAL OrderDB { get; set; }
+        private static IProductAttributeDAL ProductAttributeDB { get; set; }
+        private static ICountryDAL CountryDB { get; set; }
+
+        #endregion Declare variable
 
         /// <summary>
         /// Hàm này được gọi để khởi tạo các chức năng tác nghiệp
@@ -26,6 +31,9 @@ namespace LiteCommerce.BusiniessLayer
             CustomerDB = new DataLayer.SqlServer.CustomerDAL(connectionString);
             ShipperDB = new DataLayer.SqlServer.ShipperDAL(connectionString);
             CategoryDB = new DataLayer.SqlServer.CategoryDAL(connectionString);
+            ProductDB = new DataLayer.SqlServer.ProductDAL(connectionString);
+            ProductAttributeDB = new DataLayer.SqlServer.ProductAttributeDAL(connectionString);
+            CountryDB = new DataLayer.SqlServer.CountryDAL(connectionString);
         }
 
         #region Supplier
@@ -94,6 +102,11 @@ namespace LiteCommerce.BusiniessLayer
         public static bool Supplier_Delete(int[] supplierIDs)
         {
             return SupplierDB.Delete(supplierIDs);
+        }
+
+        public static List<Supplier> Suppliers_CompanyName()
+        {
+            return SupplierDB.List();
         }
 
         #endregion Supplier
@@ -301,6 +314,136 @@ namespace LiteCommerce.BusiniessLayer
             return CategoryDB.Delete(categoryIDs);
         }
 
+        public static List<Category> Category_CategoryName()
+        {
+            return CategoryDB.List();
+        }
+
         #endregion Category
+
+        #region Product
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="searchValue"></param>
+        /// <returns></returns>
+        public static List<Product> Product_List(int page, int pageSize, string searchValue, int categoryName, int companyName)
+        {
+            if (page < 1)
+                page = 1;
+            if (pageSize <= 0)
+                pageSize = 30;
+            return ProductDB.List(page, pageSize, searchValue, categoryName,companyName);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="searchValue"></param>
+        /// <returns></returns>
+        public static int Product_Count(string searchValue, int categoryName, int companyName)
+        {
+            return ProductDB.Count(searchValue, categoryName,companyName);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns></returns>
+        public static Product GetProduct(int productId)
+        {
+            return ProductDB.Get(productId);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static int Product_Add(Product data)
+        {
+            return ProductDB.Add(data);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="productIDs"></param>
+        /// <returns></returns>
+        public static bool Product_Delete(int[] productIDs)
+        {
+            return ProductDB.Delete(productIDs);
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static bool Product_Update(Product data)
+        {
+            return ProductDB.Update(data);
+        }
+
+        #endregion Product
+
+        #region ProductAttribute
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        public static List<ProductAttributes> ProductAttribute_List(int productID)
+        {
+            return ProductAttributeDB.List(productID);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static int ProductAttribute_Add(ProductAttributes data)
+        {
+            return ProductAttributeDB.Add(data);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="productAttributeId"></param>
+        /// <returns></returns>
+        public static ProductAttributes GetProductAttributes(int productAttributeId)
+        {
+            return ProductAttributeDB.Get(productAttributeId);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="productAttributesIDs"></param>
+        /// <returns></returns>
+        public static bool ProductAttributes_Delete(int[] productAttributesIDs)
+        {
+            return ProductAttributeDB.Delete(productAttributesIDs);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static bool ProductAttributes_Update(ProductAttributes data)
+        {
+            return ProductAttributeDB.Update(data);
+        }
+        #endregion ProductAttribute
+
+        #region Country
+        public static List<Country> Country_List()
+        {
+            return CountryDB.ListCountries();
+        }
+        #endregion Country
     }
 }

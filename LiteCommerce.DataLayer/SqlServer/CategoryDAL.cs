@@ -35,12 +35,12 @@ namespace LiteCommerce.DataLayer.SqlServer
                 cmd.CommandText = @"INSERT INTO Categories
                                             (
                                             CategoryName,
-                                            Description,
+                                            Description
                                             )
                                             VALUES
                                             (
                                             @CategoryName,
-                                            @Description,
+                                            @Description
                                             );
                                             SELECT @@IDENTITY;";
                 cmd.CommandType = CommandType.Text;
@@ -199,6 +199,37 @@ namespace LiteCommerce.DataLayer.SqlServer
             return data;
         }
 
+        public List<Category> List()
+        {
+            List<Category> data = new List<Category>();
+            using (SqlConnection connection = new SqlConnection(connectionString)) //tao 1 doi tuong ket noi csdl
+            {
+                // mo ket noi
+                connection.Open();
+                using (SqlCommand cmd = new SqlCommand())  //tao doi tuong command chua 1 cau lenh dung de thuc thi yeu cau truy van du lieu
+                {
+                    //chuoi chua cau lenh can thuc thi
+                    cmd.CommandText = @"select DISTINCT CategoryName,CategoryID from Categories order by CategoryName";
+                    cmd.CommandType = CommandType.Text; //cho biet lenh thuc thi la lenh dang gi
+                    cmd.Connection = connection;
+
+                    using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        while (dbReader.Read())
+                        {
+                            data.Add(new Category()
+                            {
+                                CategoryName = Convert.ToString(dbReader["CategoryName"]),
+                                CategoryID = Convert.ToInt32(dbReader["CategoryID"]),
+                            });
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            return data;
+        }
+
         /// <summary>
         ///
         /// </summary>
@@ -206,7 +237,30 @@ namespace LiteCommerce.DataLayer.SqlServer
         /// <returns></returns>
         public bool Update(Category data)
         {
-            throw new NotImplementedException();
+            int rowsAffected = 0;
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = @"UPDATE Categories
+                                    SET
+                                        CategoryName = @CategoryName,
+                                        Description = @Description
+                                    WHERE
+                                        CategoryID = @CategoryID;";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+
+                cmd.Parameters.AddWithValue("@CategoryName", data.CategoryName);
+                cmd.Parameters.AddWithValue("@Description", data.Description);
+                cmd.Parameters.AddWithValue("@CategoryID", data.CategoryID);
+
+                rowsAffected = Convert.ToInt32(cmd.ExecuteNonQuery());
+
+                connection.Close();
+            }
+            return rowsAffected > 0;
         }
     }
 }

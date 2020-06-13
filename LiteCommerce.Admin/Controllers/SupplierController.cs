@@ -9,7 +9,7 @@ namespace LiteCommerce.Admin.Controllers
     ///
     /// </summary>
     /// <returns></returns>
-    [Authorize]
+    [AuthorizeRedirect(Roles = WebUserRoles.ACCOUNTANT)]
     public class SupplierController : Controller
     {
         /// <summary>
@@ -103,6 +103,10 @@ namespace LiteCommerce.Admin.Controllers
                 if (string.IsNullOrEmpty(data.Fax))
                 {
                     data.Fax = "";
+                }
+                if (string.IsNullOrEmpty(data.Country))
+                {
+                    data.Country = "";
                 }
 
                 #endregion Allow Null for Columns

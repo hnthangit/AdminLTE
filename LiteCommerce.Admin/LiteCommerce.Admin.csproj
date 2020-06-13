@@ -126,7 +126,15 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Codes\AppSetting.cs" />
+    <Compile Include="Codes\AuthorizeRedirect.cs" />
+    <Compile Include="Codes\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Codes\EncodeMD5.cs" />
     <Compile Include="Codes\SelectListHelper.cs" />
+    <Compile Include="Codes\TestAuthorize.cs" />
+    <Compile Include="Codes\WebUserData.cs" />
+    <Compile Include="Codes\WebUserExtensions.cs" />
+    <Compile Include="Codes\WebUserPrincipal.cs" />
+    <Compile Include="Codes\WebUserRoles.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
@@ -137,13 +145,17 @@
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ShipperController.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
+    <Compile Include="Controllers\_TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CategoryResult.cs" />
     <Compile Include="Models\CustomerPaginationResult.cs" />
     <Compile Include="Models\EmployeePaginationResult.cs" />
+    <Compile Include="Models\FileUploadModel.cs" />
     <Compile Include="Models\PaginationResult.cs" />
+    <Compile Include="Models\ProductAtrributeResult.cs" />
+    <Compile Include="Models\ProductPaginationResult.cs" />
     <Compile Include="Models\ShipperResult.cs" />
     <Compile Include="Models\SupplierPaginationResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -159,6 +171,18 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Web.config" />
+    <Content Include="Views\Product\Control.cshtml" />
+    <Content Include="Views\Product\Detail.cshtml" />
+    <Content Include="Views\Product\AddProductAttribute.cshtml" />
+    <Content Include="Views\_Test\CheckAuth.cshtml" />
+    <Content Include="Views\_Test\Index.cshtml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -170,13 +194,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Web.config" />
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />

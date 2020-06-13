@@ -46,10 +46,16 @@ namespace LiteCommerce.DataLayer
         List<Supplier> List(int page, int pageSize, string searchValue);
 
         /// <summary>
-        ///
+        /// Đếm sô kết quả tìm được
         /// </summary>
-        /// <param name="searchValue"></param>
-        /// <returns></returns>
+        /// <param name="searchValue">Giá trị cần tìm kiếm</param>
+        /// <returns>Số giá trị tìm được</returns>
         int Count(string searchValue);
+
+        /// <summary>
+        /// Danh sách toàn bộ nhà cung cấp
+        /// </summary>
+        /// <returns></returns>
+        List<Supplier> List();
     }
 }

@@ -51,5 +51,11 @@ namespace LiteCommerce.DataLayer
         /// <param name="searchValue"></param>
         /// <returns></returns>
         int Count(string searchValue);
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <returns></returns>
+        List<Category> List();
     }
 }

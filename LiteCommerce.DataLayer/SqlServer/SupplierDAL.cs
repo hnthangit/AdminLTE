@@ -86,7 +86,6 @@ namespace LiteCommerce.DataLayer.SqlServer
         /// <returns></returns>
         public int Count(string searchValue)
         {
-            //TODO: sửa hàm count lại
             int rowCount = 0;
             if (!string.IsNullOrEmpty(searchValue))
                 searchValue = "%" + searchValue + "%";
@@ -238,6 +237,42 @@ namespace LiteCommerce.DataLayer.SqlServer
                                 Phone = Convert.ToString(dbReader["Phone"]),
                                 Fax = Convert.ToString(dbReader["Fax"]),
                                 HomePage = Convert.ToString(dbReader["HomePage"]),
+                            });
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            return data;
+        }
+
+        public List<Supplier> List()
+        {
+            List<Supplier> data = new List<Supplier>();
+            //TODO: Truy vấn dữ liệu từ CSDL ...
+            using (SqlConnection connection = new SqlConnection(connectionString)) //tao 1 doi tuong ket noi csdl
+            {
+                // mo ket noi
+                connection.Open();
+                using (SqlCommand cmd = new SqlCommand())  //tao doi tuong command chua 1 cau lenh dung de thuc thi yeu cau truy van du lieu
+                {
+                    //chuoi chua cau lenh can thuc thi
+                    cmd.CommandText = @"select DISTINCT CompanyName, SupplierID from Suppliers order by CompanyName";
+                    cmd.CommandType = CommandType.Text; //cho biet lenh thuc thi la lenh dang gi
+                    cmd.Connection = connection;
+
+                    //them gia tri cho cac tham so dau vao co trong cau lenh sql
+
+                    //thuc thi cau lenh: sau khi co doi tuong cmd thi tien hanh thuc thi lenh => ket qua tra ve dataReader chua du lieu truy van dc
+                    using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        //truyen du lieu
+                        while (dbReader.Read())
+                        {
+                            data.Add(new Supplier()
+                            {
+                                CompanyName = Convert.ToString(dbReader["CompanyName"]),
+                                SupplierID = Convert.ToInt32(dbReader["SupplierID"]),
                             });
                         }
                     }

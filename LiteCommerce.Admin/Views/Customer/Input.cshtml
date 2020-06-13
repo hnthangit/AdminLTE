@@ -1,88 +1,92 @@
 ﻿@model LiteCommerce.DomainModels.Customer
 @{
-    
+
 }
-    <div class="box box-info">
-        <div class="box-body">
+<div class="box box-info">
+    <div class="box-body">
 
-
-            <form role="form">
-                <div class="box-body row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Contact Company</label>
-                            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Contact Company" value="@Model.CompanyName">
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Contact Name</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Contact Name" value="@Model.ContactName">
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Contact Title</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Contact Title" value="@Model.ContactTitle">
-                                </div>
+        <form role="form" action="~/Customer/Input" method="post">
+            <div class="box-body row">
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">CustomerID</label>
+                                <input type="text" name="CustomerID" class="form-control" id="exampleInputPassword1" placeholder="Enter CustomerID" value="@Model.CustomerID">
                             </div>
                         </div>
-                        <div class="row">
-
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Phone number</label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                                        <input type="text" class="form-control" placeholder="Enter phonenumber" value="@Model.Phone">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Fax</label>
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-fax"></i></span>
-                                        <input type="text" class="form-control" placeholder="Enter Fax" value="@Model.Fax">
-                                    </div>
-                                </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Company Name</label>
+                                <input type="text" name="CompanyName" class="form-control" id="exampleInputPassword1" placeholder="Enter Company Name" value="@Model.CompanyName">
                             </div>
                         </div>
-                        
-
                     </div>
-                    <div class="col-sm-6">
-
-
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">Country</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Country" value="@Model.Country">
-                                </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Contact Name</label>
+                                <input type="text" name="ContactName" class="form-control" id="exampleInputPassword1" placeholder="Enter Contact Name" value="@Model.ContactName">
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label for="exampleInputPassword1">City</label>
-                                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter City" value="@Model.City">
-                                </div>
-                            </div>
-
                         </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Address</label>
-                            <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Enter Address" value="@Model.Address">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Contact Title</label>
+                                <input type="text" name="ContactTitle" class="form-control" id="exampleInputPassword1" placeholder="Enter Contact Title" value="@Model.ContactTitle">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Phone number</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                    <input type="text" name="Phone" class="form-control" placeholder="Enter phonenumber" value="@Model.Phone">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Fax</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-fax"></i></span>
+                                    <input type="text" name="Fax" class="form-control" placeholder="Enter Fax" value="@Model.Fax">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-sm-6">
 
-                <!-- /.box-body -->
-
-                <div class="box-footer pull-right">
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Save</button>
-                    <button type="reset" class="btn btn-white"><i class="fa fa-reset"></i>Cancel</button>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Country</label>
+                                <input type="text" name="Country" class="form-control" id="exampleInputPassword1" placeholder="Enter Country" value="@Model.Country">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">City</label>
+                                <input type="text" name="City" class="form-control" id="exampleInputPassword1" placeholder="Enter City" value="@Model.City">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Address</label>
+                        <input type="text" class="form-control" name="Address" id="exampleInputPassword1" placeholder="Enter Address" value="@Model.Address">
+                    </div>
                 </div>
-            </form>
-        </div>
+            </div>
+            @Html.ValidationSummary();
+            <!-- /.box-body -->
+
+            <div class="box-footer pull-right">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Save</button>
+                <button type="reset" class="btn btn-white"><i class="fa fa-reset"></i>Cancel</button>
+            </div>
+        </form>
     </div>
-
+</div>

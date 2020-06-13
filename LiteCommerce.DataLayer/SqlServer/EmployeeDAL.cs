@@ -18,7 +18,11 @@ namespace LiteCommerce.DataLayer.SqlServer
         {
             this.connectionString = connectionString;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public int Add(Employee data)
         {
             int employeeId = 0;
@@ -40,7 +44,7 @@ namespace LiteCommerce.DataLayer.SqlServer
                                             HomePhone,
                                             Notes,
                                             PhotoPath,
-                                            Password,
+                                            Password
                                             )
                                             VALUES
                                             (
@@ -56,7 +60,7 @@ namespace LiteCommerce.DataLayer.SqlServer
                                             @HomePhone,
                                             @Notes,
                                             @PhotoPath,
-                                            @Password,
+                                            @Password
                                             );
                                             SELECT @@IDENTITY;";
                 cmd.CommandType = CommandType.Text;
@@ -81,7 +85,11 @@ namespace LiteCommerce.DataLayer.SqlServer
             }
             return employeeId;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="searchValue"></param>
+        /// <returns></returns>
         public int Count(string searchValue)
         {
             int rowCount = 0;
@@ -104,7 +112,11 @@ namespace LiteCommerce.DataLayer.SqlServer
             }
             return rowCount;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="employeeIDs"></param>
+        /// <returns></returns>
         public bool Delete(int[] employeeIDs)
         {
             bool result = true;
@@ -129,7 +141,11 @@ namespace LiteCommerce.DataLayer.SqlServer
             }
             return result;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="employeeID"></param>
+        /// <returns></returns>
         public Employee Get(int employeeID)
         {
             Employee data = null;
@@ -170,7 +186,13 @@ namespace LiteCommerce.DataLayer.SqlServer
             }
             return data;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="searchValue"></param>
+        /// <returns></returns>
         public List<Employee> List(int page, int pageSize, string searchValue)
         {
             List<Employee> data = new List<Employee>();
@@ -226,7 +248,11 @@ namespace LiteCommerce.DataLayer.SqlServer
             }
             return data;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public bool Update(Employee data)
         {
             int rowsAffected = 0;
@@ -249,7 +275,7 @@ namespace LiteCommerce.DataLayer.SqlServer
                                         HomePhone    =   @HomePhone,
                                         Notes        =   @Notes,
                                         PhotoPath    =   @PhotoPath,
-                                        Password     =   @Password,
+                                        Password     =   @Password
                                     WHERE
                                         EmployeeID = @EmployeeID;";
                 cmd.CommandType = CommandType.Text;
@@ -275,6 +301,107 @@ namespace LiteCommerce.DataLayer.SqlServer
                 connection.Close();
             }
             return rowsAffected > 0;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public bool Login(string email, string password)
+        {
+            bool result = false;
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = "select * from Employees where Email = @Email and Password = @Password";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                cmd.Parameters.AddWithValue("@Email", email);
+                cmd.Parameters.AddWithValue("@Password", password);
+                using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                {
+                    if (dbReader.Read())
+                    {
+                        result = true;
+                    }
+                }
+                connection.Close();
+            }
+            return result;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="newPassword"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public bool Update(string newPassword, string email)
+        {
+            int rowsAffected = 0;
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = @"update Employees set Password = @Password where Email = @Email";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+
+                cmd.Parameters.AddWithValue("@Password", newPassword);
+                cmd.Parameters.AddWithValue("@Email", email);
+
+                rowsAffected = Convert.ToInt32(cmd.ExecuteNonQuery());
+
+                connection.Close();
+            }
+            return rowsAffected > 0;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public Employee Get(string email)
+        {
+            Employee data = null;
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = @"select * from Employees where Email = @email";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                cmd.Parameters.AddWithValue("@email", email);
+
+                using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                {
+                    if (dbReader.Read())
+                    {
+                        data = new Employee()
+                        {
+                            EmployeeID = Convert.ToInt32(dbReader["EmployeeID"]),
+                            LastName = Convert.ToString(dbReader["LastName"]),
+                            FirstName = Convert.ToString(dbReader["FirstName"]),
+                            Title = Convert.ToString(dbReader["Title"]),
+                            BirthDate = Convert.ToDateTime(dbReader["BirthDate"]),
+                            HireDate = Convert.ToDateTime(dbReader["HireDate"]),
+                            Email = Convert.ToString(dbReader["Email"]),
+                            Address = Convert.ToString(dbReader["Address"]),
+                            City = Convert.ToString(dbReader["City"]),
+                            Country = Convert.ToString(dbReader["Country"]),
+                            HomePhone = Convert.ToString(dbReader["HomePhone"]),
+                            Notes = Convert.ToString(dbReader["Notes"]),
+                            PhotoPath = Convert.ToString(dbReader["PhotoPath"]),
+                            Password = Convert.ToString(dbReader["Password"]),
+                        };
+                    }
+                }
+                connection.Close();
+            }
+            return data;
         }
     }
 }

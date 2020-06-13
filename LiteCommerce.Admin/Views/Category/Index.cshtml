@@ -17,44 +17,42 @@
             </div>
         </form>
     </div>
-
 </div>
-<div class="container-fluid row" style="margin-bottom:10px">
-    <div class="col-sm-8">
-        There are <b>1,000</b> Shipper found. Page 1/100.
-    </div>
-    <div class="col-md-4 text-right">
-
-        <div class="btn-group">
-            <a href="~/Category/Input" class="btn btn-sm btn-success">Add Category</a>
-            <button type="button" class="btn btn-sm btn-danger">Delete Category</button>
+<form action="~/Category/Delete" method="post">
+    <div class="container-fluid row" style="margin-bottom:10px">
+        <div class="col-sm-8">
+            There are <b>@Model.RowCount</b> Shipper found. Page @Model.Page/ @Model.PageCount.
         </div>
+        <div class="col-md-4 text-right">
 
+            <div class="btn-group">
+                <a href="~/Category/Input" class="btn btn-sm btn-success">Add Category</a>
+                <button type="submit" class="btn btn-sm btn-danger">Delete Category</button>
+            </div>
+        </div>
     </div>
-</div>
-<div class="box box-success">
-    <div class="box-body">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th class="sw-30">
-                        <input type="checkbox" />
-                    </th>
-                    <th class="sw-50">#</th>
-                    <th class="sw-auto">Category Name</th>
-                    <th class="sw-auto">Description</th>
-                    <th class="sw-100"></th>
+    <div class="box box-success">
+        <div class="box-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="sw-30">
+                            <input type="checkbox" />
+                        </th>
+                        <th class="sw-50">#</th>
+                        <th class="sw-auto">Category Name</th>
+                        <th class="sw-auto">Description</th>
+                        <th class="sw-100"></th>
+                    </tr>
+                </thead>
 
-                </tr>
-            </thead>
-
-            <tbody class="text-align">
-                @foreach(var item in Model.Data)
+                <tbody class="text-align">
+                    @foreach (var item in Model.Data)
                     {
 
                         <tr>
                             <td>
-                                <input type="checkbox" />
+                                <input type="checkbox" name="categoryIDs" value="@item.CategoryID" />
                             </td>
                             <td>
                                 @item.CategoryID
@@ -70,16 +68,11 @@
                                 <a href="~/Category/Input/@item.CategoryID" class="btn btn-primary center-block">
                                     <i class="fa fa-info"></i>
                                 </a>
-
-
                             </td>
                         </tr>
                     }
-                
-
-            </tbody>
-        </table>
-        
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
-
+</form>

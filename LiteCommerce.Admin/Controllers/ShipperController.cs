@@ -9,7 +9,7 @@ namespace LiteCommerce.Admin.Controllers
     ///
     /// </summary>
     /// <returns></returns>
-    [Authorize]
+    [AuthorizeRedirect(Roles = WebUserRoles.ACCOUNTANT)]
     public class ShipperController : Controller
     {
         // GET: Shipper
@@ -38,6 +38,7 @@ namespace LiteCommerce.Admin.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult Input(string id = "")
         {
             if (string.IsNullOrEmpty(id))
@@ -72,6 +73,15 @@ namespace LiteCommerce.Admin.Controllers
                 CatalogBLL.Shipper_Update(data);
             }
             return RedirectToAction("Index", "Shipper");
+        }
+
+        public ActionResult Delete(string method = "", int[] shipperIDs = null)
+        {
+            if(shipperIDs != null)
+            {
+                CatalogBLL.Shipper_Delete(shipperIDs);
+            }
+            return RedirectToAction("Index");
         }
     }
 }

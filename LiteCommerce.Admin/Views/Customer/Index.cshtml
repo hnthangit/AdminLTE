@@ -1,7 +1,7 @@
 ﻿@model LiteCommerce.Admin.Models.CustomerPaginationResult
 @{
     ViewBag.Title = "Customer";
-    
+
 }
 
 <div class="box box-info">
@@ -17,46 +17,44 @@
             </div>
         </form>
     </div>
-
 </div>
-<div class="container-fluid row" style="margin-bottom:10px">
-    <div class="col-sm-8">
-        There are <b>@Model.RowCount</b> Customer found. Page @Model.Page/ @Model.PageCount.
-    </div>
-    <div class="col-md-4 text-right">
-
-        <div class="btn-group">
-            <a href="~/Customer/Input" class="btn btn-sm btn-success">Add Customer</a>
-            <button type="button" class="btn btn-sm btn-danger">Delete Customer</button>
+<form action="~/Customer/Delete" method="post">
+    <div class="container-fluid row" style="margin-bottom:10px">
+        <div class="col-sm-8">
+            There are <b>@Model.RowCount</b> Customer found. Page @Model.Page/ @Model.PageCount.
         </div>
+        <div class="col-md-4 text-right">
 
+            <div class="btn-group">
+                <a href="~/Customer/Input" class="btn btn-sm btn-success">Add Customer</a>
+                <button type="button" class="btn btn-sm btn-danger">Delete Customer</button>
+            </div>
+        </div>
     </div>
-</div>
-<div class="box box-success">
-    <div class="box-body">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th class="sw-30">
-                        <input type="checkbox" />
-                    </th>
-                    <th class="sw-50">#</th>
-                    <th class="sw-auto">Name</th>
-                    <th class="sw-auto">Address</th>
-                    <th class="sw-200">Contact Info</th>
-                    <th class="sw-100"></th>
+    <div class="box box-success">
+        <div class="box-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="sw-30">
+                            <input type="checkbox" />
+                        </th>
+                        <th class="sw-50">#</th>
+                        <th class="sw-auto">Name</th>
+                        <th class="sw-auto">Address</th>
+                        <th class="sw-200">Contact Info</th>
+                        <th class="sw-100"></th>
+                    </tr>
+                </thead>
 
-                </tr>
-            </thead>
+                <tbody class="text-align">
 
-            <tbody class="text-align">
-                
-                    @foreach(var item in Model.Data)
-                    {                        
+                    @foreach (var item in Model.Data)
+                    {
 
                         <tr>
                             <td>
-                                <input type="checkbox" />
+                                <input type="checkbox" name="customerIDs" value="@item.CustomerID"/>
                             </td>
                             <td>
                                 @item.CustomerID
@@ -64,7 +62,6 @@
                             <td>
                                 <span class="text-primary cnp-name">@item.CompanyName</span>
                                 <br />@item.ContactTitle<b>@item.ContactName</b>
-
                             </td>
                             <td>
                                 @item.Address<br />
@@ -72,32 +69,28 @@
                             </td>
                             <td>
                                 <span class="std-block"><i class="fa fa-phone"></i>@item.Phone</span>
-                                <span class="std-block"><i class="fa fa-fax"></i>@item.Fax</span>                                
+                                <span class="std-block"><i class="fa fa-fax"></i>@item.Fax</span>
                             </td>
                             <td class="text-center">
                                 <!-- Button trigger modal -->
                                 <a href="~/Customer/Input/@item.CustomerID" class="btn btn-primary center-block">
                                     <i class="fa fa-info"></i>
                                 </a>
-
-
                             </td>
                         </tr>
                     }
-                
-
-            </tbody>
-        </table>
-        <div class="box-footer clearfix">
-            <ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="#">«</a></li>
-                @for (int page = 1; page <= Model.PageCount; page++)
-                {
-                    <li><a href="~/Customer/Index?page=@page&searchValue=@Model.searchValue">@page</a></li>
-                }
-                <li><a href="#">»</a></li>
-            </ul>
+                </tbody>
+            </table>
+            <div class="box-footer clearfix">
+                <ul class="pagination pagination-sm no-margin pull-right">
+                    <li><a href="#">«</a></li>
+                    @for (int page = 1; page <= Model.PageCount; page++)
+                    {
+                        <li><a href="~/Customer/Index?page=@page&searchValue=@Model.searchValue">@page</a></li>
+                    }
+                    <li><a href="#">»</a></li>
+                </ul>
+            </div>
         </div>
     </div>
-</div>
-
+</form>

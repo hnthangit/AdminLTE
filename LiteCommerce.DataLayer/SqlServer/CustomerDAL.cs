@@ -41,7 +41,7 @@ namespace LiteCommerce.DataLayer.SqlServer
 	                                            City,
 	                                            Country,
 	                                            Phone,
-	                                            Fax,
+	                                            Fax
                                             )
                                             VALUES
                                             (
@@ -53,12 +53,13 @@ namespace LiteCommerce.DataLayer.SqlServer
 	                                            @City,
 	                                            @Country,
 	                                            @Phone,
-	                                            @Fax,
+	                                            @Fax
                                             );
                                             SELECT @@IDENTITY;";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
 
+                cmd.Parameters.AddWithValue("@CustomerID", data.CustomerID);
                 cmd.Parameters.AddWithValue("@CompanyName", data.CompanyName);
                 cmd.Parameters.AddWithValue("@ContactName", data.ContactName);
                 cmd.Parameters.AddWithValue("@ContactTitle", data.ContactTitle);
@@ -225,13 +226,13 @@ namespace LiteCommerce.DataLayer.SqlServer
                 cmd.CommandText = @"UPDATE Customers
                                     SET
                                         CompanyName = @CompanyName,
-                                        ContactName = @CompanyName,
+                                        ContactName = @ContactName,
                                         ContactTitle = @ContactTitle,
                                         Address = @Address,
                                         City = @City,
                                         Country = @Country,
                                         Phone = @Phone,
-                                        Fax = @Fax,
+                                        Fax = @Fax
                                     WHERE
                                         CustomerID = @CustomerID;";
                 cmd.CommandType = CommandType.Text;

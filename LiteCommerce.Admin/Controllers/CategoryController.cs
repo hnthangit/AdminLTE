@@ -8,7 +8,7 @@ namespace LiteCommerce.Admin.Controllers
     /// <summary>
     ///
     /// </summary>
-    [Authorize]
+    [AuthorizeRedirect(Roles = WebUserRoles.ACCOUNTANT)]
     public class CategoryController : Controller
     {
         // GET: Category
@@ -33,10 +33,12 @@ namespace LiteCommerce.Admin.Controllers
         }
 
         /// <summary>
-        ///
+        /// Trang Category/Input : thêm mới một Category
+        /// Nếu có tham số ID thì chuyển về trang chỉnh sửa
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [HttpGet]
         public ActionResult Input(string id = "")
         {
             if (string.IsNullOrEmpty(id))
@@ -55,6 +57,64 @@ namespace LiteCommerce.Admin.Controllers
 
                 return View(editCategory);
             }
+        }
+
+        /// <summary>
+        /// Trang thêm thông tin của một Category
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Input(Category data)
+        {
+            try
+            {
+                #region Allow Null for Columns
+
+                if (string.IsNullOrEmpty(data.CategoryName))
+                {
+                    data.CategoryName = "";
+                }
+
+                #endregion Allow Null for Columns
+
+                if (string.IsNullOrEmpty(data.CategoryName))
+                    ModelState.AddModelError("ErrorCategoryName", "Category Name is required");
+                if (!ModelState.IsValid)
+                {
+                    return View(data);
+                }
+                if (data.CategoryID == 0)
+                {
+                    int categoryId = CatalogBLL.Category_Add(data);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    bool updateResult = CatalogBLL.Category_Update(data);
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message + ":" + ex.StackTrace);
+                return View(data);
+            }
+        }
+
+        /// <summary>
+        /// Action xóa một hoặc nhiều Category
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="categoryIDs"></param>
+        /// <returns></returns>
+        public ActionResult Delete(string method = "", int[] categoryIDs = null)
+        {
+            if (categoryIDs != null)
+            {
+                CatalogBLL.Category_Delete(categoryIDs);
+            }
+            return RedirectToAction("Index");
         }
     }
 }

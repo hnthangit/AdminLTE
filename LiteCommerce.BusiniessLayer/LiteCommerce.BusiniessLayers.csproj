@@ -47,6 +47,8 @@
     <Compile Include="HumanResourceBLL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportBLL.cs" />
+    <Compile Include="UserAccountBLL.cs" />
+    <Compile Include="UserAccountTypes.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ListCommerce.DomainModels\LiteCommerce.DomainModels.csproj">

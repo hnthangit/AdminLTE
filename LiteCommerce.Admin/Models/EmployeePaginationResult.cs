@@ -6,5 +6,6 @@ namespace LiteCommerce.Admin.Models
     public class EmployeePaginationResult : PaginationResult
     {
         public List<Employee> Data;
+        public Employee DataEmployee;
     }
 }

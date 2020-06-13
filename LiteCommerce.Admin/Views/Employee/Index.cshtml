@@ -69,14 +69,14 @@
                         <td>
                             <span class="std-block"><i class="fa fa-phone"></i>@item.HomePhone</span>
                             <span class="std-block"><i class="fa fa-at"></i>@item.Email</span>
-                            <span class="std-block"><i class="fa fa-birthday-cake"></i>@item.BirthDate</span>
-                            <span class="std-block"><i class="fa fa-users"></i>@item.HireDate</span>
+                            <span class="std-block"><i class="fa fa-birthday-cake"></i>@item.BirthDate.Day/@item.BirthDate.Month/@item.BirthDate.Year</span>
+                            <span class="std-block"><i class="fa fa-users"></i>@item.HireDate.Day/@item.HireDate.Month/@item.HireDate.Year</span>
                         </td>
                         <td>
                             @item.Notes
                         </td>
                         <td>
-                            <img style="width:100px; height:100px;" src="~/Themes/AdminLTE/dist/img/avatar5.png" />
+                            <img style="width:100px; height:100px;" src="~/Images/@item.PhotoPath" />
                         </td>
                         <td class="text-center">
                             <!-- Button trigger modal -->

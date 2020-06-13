@@ -106,7 +106,7 @@ namespace LiteCommerce.DataLayer.SqlServer
                 cmd.Parameters.Add("@shipperId", SqlDbType.Int);
                 foreach (int shipperId in shippersIds)
                 {
-                    cmd.Parameters["@shippersId"].Value = shipperId;
+                    cmd.Parameters["@shipperId"].Value = shipperId;
                     cmd.ExecuteNonQuery();
                 }
 

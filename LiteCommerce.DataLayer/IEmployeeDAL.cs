@@ -9,6 +9,8 @@ namespace LiteCommerce.DataLayer
 
         bool Update(Employee data);
 
+        bool Update(string email, string password);
+
         bool Delete(int[] employeeIDs);
 
         Employee Get(int employeeID);
@@ -16,5 +18,9 @@ namespace LiteCommerce.DataLayer
         List<Employee> List(int page, int pageSize, string searchValue);
 
         int Count(string searchValue);
+
+        bool Login(string email, string password);
+
+        Employee Get(string email);
     }
 }

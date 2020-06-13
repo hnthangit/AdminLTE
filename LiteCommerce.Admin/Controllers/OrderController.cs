@@ -2,6 +2,7 @@
 
 namespace LiteCommerce.Admin.Controllers
 {
+    [AuthorizeRedirect(Roles = WebUserRoles.SALEMAN)]
     public class OrderController : Controller
     {
         /// <summary>

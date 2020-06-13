@@ -20,5 +20,7 @@
         }
 
         public string searchValue { get; set; }
+        public int categoryName { get; set; }
+        public int companyName { get; set; }
     }
 }

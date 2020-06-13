@@ -47,7 +47,7 @@ namespace LiteCommerce.BusiniessLayer
         public static bool Employee_Delete(int[] employeeIDs)
         {
             return EmployeeDB.Delete(employeeIDs);
-        }
+        }      
 
         #endregion Employee
     }
