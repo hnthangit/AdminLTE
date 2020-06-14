@@ -11,7 +11,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         private string connectionString;
 
         /// <summary>
-        ///
+        /// Constructor
         /// </summary>
         /// <param name="connectionString"></param>
         public CategoryDAL(string connectionString)
@@ -20,7 +20,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        ///
+        /// Bổ sung thông tin một thể loại
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -55,6 +55,11 @@ namespace LiteCommerce.DataLayer.SqlServer
             return categoryId;
         }
 
+        /// <summary>
+        /// Đếm số lượng truy vấn tìm kiếm được
+        /// </summary>
+        /// <param name="searchValue"></param>
+        /// <returns></returns>
         public int Count(string searchValue)
         {
             int rowCount = 0;
@@ -79,7 +84,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        ///
+        /// Xóa một hoặc nhiều thể loại theo ID
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -109,7 +114,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        ///
+        /// Lấy thông tin thể loại theo ID
         /// </summary>
         /// <param name="categoryID"></param>
         /// <returns></returns>
@@ -145,7 +150,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        ///
+        /// Danh sách thông tin thể loại có phân trang
         /// </summary>
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
@@ -199,6 +204,10 @@ namespace LiteCommerce.DataLayer.SqlServer
             return data;
         }
 
+        /// <summary>
+        /// Lấy toàn bộ danh sách các thể loại
+        /// </summary>
+        /// <returns></returns>
         public List<Category> List()
         {
             List<Category> data = new List<Category>();
@@ -231,7 +240,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        ///
+        /// Cập nhật thông tin của một thể loại
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>

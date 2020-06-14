@@ -177,6 +177,7 @@
     <Content Include="Views\Product\AddProductAttribute.cshtml" />
     <Content Include="Views\_Test\CheckAuth.cshtml" />
     <Content Include="Views\_Test\Index.cshtml" />
+    <Content Include="Views\Error\Permission.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

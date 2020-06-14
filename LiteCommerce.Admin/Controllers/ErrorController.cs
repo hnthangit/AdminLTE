@@ -24,5 +24,10 @@ namespace LiteCommerce.Admin.Controllers
             Response.StatusCode = 404;  //you may want to set this to 200
             return View("ServerError");
         }
+
+        public ActionResult Permission()
+        {
+            return View();
+        }
     }
 }

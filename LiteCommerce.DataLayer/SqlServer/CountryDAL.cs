@@ -2,19 +2,26 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LiteCommerce.DataLayer.SqlServer
 {
     public class CountryDAL : ICountryDAL
     {
         private string connectionString;
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="connectionString"></param>
         public CountryDAL(string connectionString)
         {
             this.connectionString = connectionString;
         }
+
+        /// <summary>
+        /// Danh sách các đất nước
+        /// </summary>
+        /// <returns></returns>
         public List<Country> ListCountries()
         {
             List<Country> data = new List<Country>();

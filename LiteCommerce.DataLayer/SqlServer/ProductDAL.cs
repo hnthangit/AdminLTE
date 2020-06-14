@@ -20,7 +20,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        ///
+        /// Bổ sung thông tin một sản phẩm
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -70,7 +70,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        ///
+        /// Đếm số lượng truy vấn tìm kiếm được
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
@@ -103,7 +103,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        ///
+        /// Xóa một hoặc nhiều sản phẩm theo ID
         /// </summary>
         /// <param name="productIDs"></param>
         /// <returns></returns>
@@ -133,7 +133,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        ///
+        /// Lấy thông tin của một sản phẩm theo ID
         /// </summary>
         /// <param name="productID"></param>
         /// <returns></returns>
@@ -171,7 +171,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        ///
+        /// Danh sách các sản phẩm theo phân trang
         /// </summary>
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
@@ -231,7 +231,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        ///
+        /// Cập nhật một sản phẩm
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>

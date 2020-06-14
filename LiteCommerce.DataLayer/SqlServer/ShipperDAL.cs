@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 namespace LiteCommerce.DataLayer.SqlServer
 {
     /// <summary>
-    ///
+    /// Triển khai hàm từ interface Shipper
     /// </summary>
     public class ShipperDAL : IShipperDAL
     {
@@ -23,7 +23,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        ///
+        /// Bổ sung thông tin người giao hàng
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -58,7 +58,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        /// Hàm đếm số lượng kết quả tìm kiếm được
+        /// Đếm số lượng kết quả tìm kiếm được
         /// </summary>
         /// <param name="searchValue">Giá trị cần tìm kiếm</param>
         /// <returns>Trả về số lượng kết quả tìm được</returns>
@@ -86,7 +86,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        ///
+        /// Xóa một hoặc nhiều người giao hàng
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -116,7 +116,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        ///
+        /// Lấy thông tin của môt người giao hàng theo ID
         /// </summary>
         /// <param name="shipperID"></param>
         /// <returns></returns>
@@ -205,7 +205,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        ///
+        /// Cập nhật thông tin của một người giao hàng
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>

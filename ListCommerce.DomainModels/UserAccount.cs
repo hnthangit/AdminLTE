@@ -1,5 +1,8 @@
 ﻿namespace LiteCommerce.DomainModels
 {
+    /// <summary>
+    /// Thông tin người sử dụng
+    /// </summary>
     public class UserAccount
     {
         /// <summary>
@@ -17,6 +20,9 @@
         /// </summary>
         public string Photo { get; set; }
 
+        /// <summary>
+        /// Tên nhóm quản trị
+        /// </summary>
         public string GroupName { get; set; }
     }
 }

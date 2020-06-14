@@ -1,14 +1,17 @@
 ﻿using LiteCommerce.DomainModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LiteCommerce.DataLayer
 {
+    /// <summary>
+    /// Interface Country
+    /// </summary>
     public interface ICountryDAL
     {
+        /// <summary>
+        /// Lấy danh sách các đất nước trong database
+        /// </summary>
+        /// <returns></returns>
         List<Country> ListCountries();
     }
 }

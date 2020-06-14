@@ -11,7 +11,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         private string connectionString;
 
         /// <summary>
-        /// Hàm tạo khi gọi Hàm
+        /// Constructor
         /// </summary>
         /// <param name="connectionString"></param>
         public CustomerDAL(string connectionString)
@@ -20,7 +20,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        ///
+        /// Thêm thông tin một khách hàng
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -76,7 +76,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        ///
+        /// Xóa một hoặc nhiều khách hàng theo ID
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -106,7 +106,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        ///
+        /// Lấy thông tin của một khách hàng theo ID
         /// </summary>
         /// <param name="customerID"></param>
         /// <returns></returns>
@@ -147,7 +147,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        ///
+        /// Danh sách khách hàng theo phân trang
         /// </summary>
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
@@ -211,7 +211,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        ///
+        /// Cập nhật thông tin một khách hàng
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -257,7 +257,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        ///
+        /// Đếm số lượng truy vấn tìm kiếm được
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>

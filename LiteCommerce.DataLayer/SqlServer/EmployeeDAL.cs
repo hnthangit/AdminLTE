@@ -11,15 +11,16 @@ namespace LiteCommerce.DataLayer.SqlServer
         private string connectionString;
 
         /// <summary>
-        ///
+        /// Constructor
         /// </summary>
         /// <param name="connectionString"></param>
         public EmployeeDAL(string connectionString)
         {
             this.connectionString = connectionString;
         }
+
         /// <summary>
-        /// 
+        /// Bổ sung thông tin một nhân viên
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -85,8 +86,9 @@ namespace LiteCommerce.DataLayer.SqlServer
             }
             return employeeId;
         }
+
         /// <summary>
-        /// 
+        /// Đếm số lượng truy vấn tìm được
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
@@ -112,8 +114,9 @@ namespace LiteCommerce.DataLayer.SqlServer
             }
             return rowCount;
         }
+
         /// <summary>
-        /// 
+        /// Xóa một hoặc nhiều nhân viên theo ID
         /// </summary>
         /// <param name="employeeIDs"></param>
         /// <returns></returns>
@@ -141,8 +144,9 @@ namespace LiteCommerce.DataLayer.SqlServer
             }
             return result;
         }
+
         /// <summary>
-        /// 
+        /// Lấy thông tin của một nhân viên theo ID
         /// </summary>
         /// <param name="employeeID"></param>
         /// <returns></returns>
@@ -186,8 +190,9 @@ namespace LiteCommerce.DataLayer.SqlServer
             }
             return data;
         }
+
         /// <summary>
-        /// 
+        /// Danh sách nhân viên có phân trang
         /// </summary>
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
@@ -248,8 +253,9 @@ namespace LiteCommerce.DataLayer.SqlServer
             }
             return data;
         }
+
         /// <summary>
-        /// 
+        /// Cập nhật thông tin của nhân viên
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -302,8 +308,9 @@ namespace LiteCommerce.DataLayer.SqlServer
             }
             return rowsAffected > 0;
         }
+
         /// <summary>
-        /// 
+        /// Kiếm tra tình trạng đăng nhập
         /// </summary>
         /// <param name="email"></param>
         /// <param name="password"></param>
@@ -331,8 +338,9 @@ namespace LiteCommerce.DataLayer.SqlServer
             }
             return result;
         }
+
         /// <summary>
-        /// 
+        /// Cập nhật mật khẩu
         /// </summary>
         /// <param name="newPassword"></param>
         /// <param name="email"></param>
@@ -358,8 +366,9 @@ namespace LiteCommerce.DataLayer.SqlServer
             }
             return rowsAffected > 0;
         }
+
         /// <summary>
-        /// 
+        /// Lấy thông tin một nhân viên theo Email
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>

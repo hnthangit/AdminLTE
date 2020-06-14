@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 namespace LiteCommerce.DataLayer.SqlServer
 {
     /// <summary>
-    ///
+    /// Triển khai các hàm cho interface Supllier
     /// </summary>
     public class SupplierDAL : ISupplierDAL
     {
@@ -23,7 +23,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        /// Bo sung supplier
+        /// Bố sung một nhà cung cấp
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -80,7 +80,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        ///
+        /// Đếm số lượng truy vấn tìm kiếm được
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
@@ -108,7 +108,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        ///
+        /// Xóa một hoặc nhiều nhà cung cấp theo ID
         /// </summary>
         /// <param name="supplierIDs"></param>
         /// <returns></returns>
@@ -138,7 +138,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        ///
+        /// Lấy thông tin nhà cung cấp theo ID
         /// </summary>
         /// <param name="supplierID"></param>
         /// <returns></returns>
@@ -246,6 +246,10 @@ namespace LiteCommerce.DataLayer.SqlServer
             return data;
         }
 
+        /// <summary>
+        /// Lấy danh sách tất cả các nhà cung cấp
+        /// </summary>
+        /// <returns></returns>
         public List<Supplier> List()
         {
             List<Supplier> data = new List<Supplier>();
@@ -283,7 +287,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
-        ///
+        /// Cập nhật thông tin của một nhà cung cấp
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>

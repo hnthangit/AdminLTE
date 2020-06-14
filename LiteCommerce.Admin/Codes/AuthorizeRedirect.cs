@@ -14,7 +14,7 @@ namespace LiteCommerce.Admin
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class AuthorizeRedirect : AuthorizeAttribute
     {
-        public string RedirectUrl = "~/_Test/Index";
+        public string RedirectUrl = "~/Error/Permission";
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {

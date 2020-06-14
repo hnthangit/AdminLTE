@@ -10,11 +10,20 @@ namespace LiteCommerce.DataLayer.SqlServer
     {
         private string connectionString;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="connectionString"></param>
         public ProductAttributeDAL(string connectionString)
         {
             this.connectionString = connectionString;
         }
 
+        /// <summary>
+        /// Bổ sung một thuộc tính cho sản phẩm
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public int Add(ProductAttributes data)
         {
             int attributeId = 0;
@@ -52,6 +61,11 @@ namespace LiteCommerce.DataLayer.SqlServer
             return attributeId;
         }
 
+        /// <summary>
+        /// Xóa một hoặc nhiều thuộc tính theo ID
+        /// </summary>
+        /// <param name="attributeIDs"></param>
+        /// <returns></returns>
         public bool Delete(int[] attributeIDs)
         {
             bool result = true;
@@ -76,6 +90,11 @@ namespace LiteCommerce.DataLayer.SqlServer
             return result;
         }
 
+        /// <summary>
+        /// Lấy thông tin thuộc tính theo mã sản phẩm
+        /// </summary>
+        /// <param name="ProductID"></param>
+        /// <returns></returns>
         public ProductAttributes Get(int ProductID)
         {
             ProductAttributes data = null;
@@ -108,11 +127,23 @@ namespace LiteCommerce.DataLayer.SqlServer
             return data;
         }
 
+        /// <summary>
+        /// Danh sách thông tin các thuộc tính của sản phẩm có phân trang
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="searchValue"></param>
+        /// <returns></returns>
         public List<ProductAttributes> List(int page, int pageSize, string searchValue)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Danh sách các thuộc tính của sản phẩm theo mã sản phẩm
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
         public List<ProductAttributes> List(int productID)
         {
             List<ProductAttributes> data = new List<ProductAttributes>();
@@ -145,6 +176,11 @@ namespace LiteCommerce.DataLayer.SqlServer
             }
         }
 
+        /// <summary>
+        /// Cập nhật thông tin của các thuốc tính trong 1 sản phẩm
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public bool Update(ProductAttributes data)
         {
             int rowsAffected = 0;

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace LiteCommerce.BusiniessLayer
 {
     /// <summary>
-    ///
+    /// Các mục lục
     /// </summary>
     public static class CatalogBLL
     {
@@ -17,6 +17,7 @@ namespace LiteCommerce.BusiniessLayer
         private static ICategoryDAL CategoryDB { get; set; }
         private static IProductDAL ProductDB { get; set; }
         private static IProductAttributeDAL ProductAttributeDB { get; set; }
+        private static IOrderDAL OrderDB { get; set; }
         private static ICountryDAL CountryDB { get; set; }
 
         #endregion Declare variable
@@ -33,6 +34,7 @@ namespace LiteCommerce.BusiniessLayer
             CategoryDB = new DataLayer.SqlServer.CategoryDAL(connectionString);
             ProductDB = new DataLayer.SqlServer.ProductDAL(connectionString);
             ProductAttributeDB = new DataLayer.SqlServer.ProductAttributeDAL(connectionString);
+            OrderDB = new DataLayer.SqlServer.OrderDAL(connectionString);
             CountryDB = new DataLayer.SqlServer.CountryDAL(connectionString);
         }
 
@@ -179,7 +181,7 @@ namespace LiteCommerce.BusiniessLayer
         #region Shipper
 
         /// <summary>
-        ///
+        /// Danh sách các người giao hàng theo phân trang
         /// </summary>
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
@@ -195,7 +197,7 @@ namespace LiteCommerce.BusiniessLayer
         }
 
         /// <summary>
-        ///
+        /// Đếm số lượng truy vấn tìm kiếm được
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
@@ -205,7 +207,7 @@ namespace LiteCommerce.BusiniessLayer
         }
 
         /// <summary>
-        ///
+        /// Lấy thông tin của một người giao hàng theo ID
         /// </summary>
         /// <param name="shipperID"></param>
         /// <returns></returns>
@@ -215,7 +217,7 @@ namespace LiteCommerce.BusiniessLayer
         }
 
         /// <summary>
-        ///
+        /// Thêm thông tin của một người giao hàng
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -225,7 +227,7 @@ namespace LiteCommerce.BusiniessLayer
         }
 
         /// <summary>
-        ///
+        /// Cập nhật thông tin của một người giao hàng
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -235,7 +237,7 @@ namespace LiteCommerce.BusiniessLayer
         }
 
         /// <summary>
-        ///
+        /// Xóa một hoặc nhiều người giao hàng theo ID
         /// </summary>
         /// <param name="shipperIDs"></param>
         /// <returns></returns>
@@ -249,7 +251,7 @@ namespace LiteCommerce.BusiniessLayer
         #region Category
 
         /// <summary>
-        ///
+        /// Danh sách thông tin các thể loại theo phân trang
         /// </summary>
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
@@ -265,7 +267,7 @@ namespace LiteCommerce.BusiniessLayer
         }
 
         /// <summary>
-        ///
+        /// Đếm số lượng các truy vấn tìm kiếm được
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
@@ -275,7 +277,7 @@ namespace LiteCommerce.BusiniessLayer
         }
 
         /// <summary>
-        ///
+        /// Lấy thông tin của một thể loại theo ID
         /// </summary>
         /// <param name="categoryId"></param>
         /// <returns></returns>
@@ -285,7 +287,7 @@ namespace LiteCommerce.BusiniessLayer
         }
 
         /// <summary>
-        ///
+        /// Thêm một thể loại
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -295,7 +297,7 @@ namespace LiteCommerce.BusiniessLayer
         }
 
         /// <summary>
-        ///
+        /// Cập nhật thông tin của một thể loại
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -305,7 +307,7 @@ namespace LiteCommerce.BusiniessLayer
         }
 
         /// <summary>
-        ///
+        /// Xóa một hoặc nhiều thể loại theo ID
         /// </summary>
         /// <param name="categoryIDs"></param>
         /// <returns></returns>
@@ -314,6 +316,10 @@ namespace LiteCommerce.BusiniessLayer
             return CategoryDB.Delete(categoryIDs);
         }
 
+        /// <summary>
+        /// Lấy tên thể loại
+        /// </summary>
+        /// <returns></returns>
         public static List<Category> Category_CategoryName()
         {
             return CategoryDB.List();
@@ -324,7 +330,7 @@ namespace LiteCommerce.BusiniessLayer
         #region Product
 
         /// <summary>
-        ///
+        /// Danh sách các sản phẩm theo phân trang
         /// </summary>
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
@@ -336,21 +342,21 @@ namespace LiteCommerce.BusiniessLayer
                 page = 1;
             if (pageSize <= 0)
                 pageSize = 30;
-            return ProductDB.List(page, pageSize, searchValue, categoryName,companyName);
+            return ProductDB.List(page, pageSize, searchValue, categoryName, companyName);
         }
 
         /// <summary>
-        ///
+        /// Đếm số lượng kết quả tìm kiếm được
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
         public static int Product_Count(string searchValue, int categoryName, int companyName)
         {
-            return ProductDB.Count(searchValue, categoryName,companyName);
+            return ProductDB.Count(searchValue, categoryName, companyName);
         }
 
         /// <summary>
-        ///
+        /// Lấy thông tin của một sản phẩm theo ID
         /// </summary>
         /// <param name="productId"></param>
         /// <returns></returns>
@@ -360,7 +366,7 @@ namespace LiteCommerce.BusiniessLayer
         }
 
         /// <summary>
-        ///
+        /// Bổ sung thông tin một sản phẩm
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -370,7 +376,7 @@ namespace LiteCommerce.BusiniessLayer
         }
 
         /// <summary>
-        ///
+        /// Xóa một hoặc nhiều sản phẩm theo ID
         /// </summary>
         /// <param name="productIDs"></param>
         /// <returns></returns>
@@ -380,7 +386,7 @@ namespace LiteCommerce.BusiniessLayer
         }
 
         /// <summary>
-        ///
+        /// Cập nhật thông tin của một sản phẩm
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -392,8 +398,9 @@ namespace LiteCommerce.BusiniessLayer
         #endregion Product
 
         #region ProductAttribute
+
         /// <summary>
-        /// 
+        /// Dánh sách thuộc tính của mốt sản phẩm theo phân trang
         /// </summary>
         /// <param name="productID"></param>
         /// <returns></returns>
@@ -401,8 +408,9 @@ namespace LiteCommerce.BusiniessLayer
         {
             return ProductAttributeDB.List(productID);
         }
+
         /// <summary>
-        /// 
+        /// Thêm thông tin một thuộc tính cho sản phẩm
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -410,8 +418,9 @@ namespace LiteCommerce.BusiniessLayer
         {
             return ProductAttributeDB.Add(data);
         }
+
         /// <summary>
-        /// 
+        /// Lấy thông tin của một thuộc tính trong sản phẩm
         /// </summary>
         /// <param name="productAttributeId"></param>
         /// <returns></returns>
@@ -419,8 +428,9 @@ namespace LiteCommerce.BusiniessLayer
         {
             return ProductAttributeDB.Get(productAttributeId);
         }
+
         /// <summary>
-        /// 
+        /// Xóa một hoặc nhiều thuộc tính của sản phẩm
         /// </summary>
         /// <param name="productAttributesIDs"></param>
         /// <returns></returns>
@@ -428,8 +438,9 @@ namespace LiteCommerce.BusiniessLayer
         {
             return ProductAttributeDB.Delete(productAttributesIDs);
         }
+
         /// <summary>
-        /// 
+        /// Cập nhật thuộc tính cho sản phẩm
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -437,13 +448,92 @@ namespace LiteCommerce.BusiniessLayer
         {
             return ProductAttributeDB.Update(data);
         }
+
         #endregion ProductAttribute
 
         #region Country
+
+        /// <summary>
+        /// Danh sách các đất nước trong database
+        /// </summary>
+        /// <returns></returns>
         public static List<Country> Country_List()
         {
             return CountryDB.ListCountries();
         }
+
         #endregion Country
+
+        #region Order
+
+        /// <summary>
+        /// Thêm một đơn đặt hàng
+        /// </summary>
+        /// <param name="data">Dữ liệu của một đơn hàng</param>
+        /// <returns>Mã đơn hàng sau khi thêm</returns>
+        public static int Add(Order data)
+        {
+            return OrderDB.Add(data);
+        }
+
+        /// <summary>
+        /// Cập nhật một đơn hàng
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static bool Update(Order data)
+        {
+            return OrderDB.Update(data);
+        }
+
+        /// <summary>
+        /// Xóa một hay nhiều đơn hàng theo mã đơn hàng
+        /// </summary>
+        /// <param name="orderIDs"></param>
+        /// <returns></returns>
+        public static bool Delete(int[] orderIDs)
+        {
+            return OrderDB.Delete(orderIDs);
+        }
+
+        /// <summary>
+        /// Lấy thông tin của một đơn hàng theo mã đơn hàng
+        /// </summary>
+        /// <param name="orderID">Mã đơn hàng</param>
+        /// <returns></returns>
+        public static Order Get(int orderID)
+        {
+            return OrderDB.Get(orderID);
+        }
+
+        /// <summary>
+        /// Danh sách các đơn hàng theo phân trang
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="searchValue"></param>
+        /// <param name="customerId"></param>
+        /// <param name="employeeId"></param>
+        /// <param name="shipperId"></param>
+        /// <returns></returns>
+        public static List<Order> List(int page, int pageSize, string searchValue, int customerId, int employeeId, int shipperId)
+        {
+            return OrderDB.List(page, pageSize, searchValue, customerId, employeeId, shipperId);
+        }
+
+        /// <summary>
+        /// Đếm số truy vấn tìm kiếm được
+        /// </summary>
+        /// <param name="searchValue">Giá trị cần tìm kiếm</param>
+        /// <param name="customerId">Mã khách hàng</param>
+        /// <param name="employeeId">Mã nhân viên</param>
+        /// <param name="shipperId">Mã người giao hàng</param>
+        /// <returns>Số kết quả tìm được</returns>
+        public static int Count(string searchValue, int customerId, int employeeId, int shipperId)
+        {
+            return OrderDB.Count(searchValue, customerId, employeeId, shipperId);
+        }
+
+        #endregion Order
     }
 }
