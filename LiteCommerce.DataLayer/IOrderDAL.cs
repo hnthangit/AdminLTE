@@ -46,7 +46,7 @@ namespace LiteCommerce.DataLayer
         /// <param name="employeeId">Mã nhân viên</param>
         /// <param name="shipperId">Mã người giao hàng</param>
         /// <returns></returns>
-        List<Order> List(int page, int pageSize, string searchValue, int customerId, int employeeId, int shipperId);
+        List<Order> List(int page, int pageSize, string searchValue, string customerId, int employeeId, int shipperId);
 
         /// <summary>
         /// Đếm số truy vấn tìm kiếm được
@@ -56,6 +56,6 @@ namespace LiteCommerce.DataLayer
         /// <param name="employeeId">Mã nhân viên</param>
         /// <param name="shipperId">Mã người giao hàng</param>
         /// <returns>Số kết quả tìm được</returns>
-        int Count(string searchValue, int customerId, int employeeId, int shipperId);
+        int Count(string searchValue, string customerId, int employeeId, int shipperId);
     }
 }

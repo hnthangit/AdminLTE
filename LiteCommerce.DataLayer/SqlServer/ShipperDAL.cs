@@ -205,6 +205,42 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
+        /// Lấy thông tin của môt người giao hàng.
+        /// Gồm: Mã người giao hàng và tên công ty
+        /// </summary>
+        /// <returns></returns>
+        public List<Shipper> List()
+        {
+            List<Shipper> data = new List<Shipper>();
+            using (SqlConnection connection = new SqlConnection(connectionString)) //tao 1 doi tuong ket noi csdl
+            {
+                // mo ket noi
+                connection.Open();
+                using (SqlCommand cmd = new SqlCommand())  //tao doi tuong command chua 1 cau lenh dung de thuc thi yeu cau truy van du lieu
+                {
+                    //chuoi chua cau lenh can thuc thi
+                    cmd.CommandText = @"select DISTINCT ShipperID, CompanyName from Shippers order by CompanyName";
+                    cmd.CommandType = CommandType.Text; //cho biet lenh thuc thi la lenh dang gi
+                    cmd.Connection = connection;
+
+                    using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        while (dbReader.Read())
+                        {
+                            data.Add(new Shipper()
+                            {
+                                ShipperID = Convert.ToInt32(dbReader["ShipperID"]),
+                                CompanyName = Convert.ToString(dbReader["CompanyName"]),                                
+                            });
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            return data;
+        }
+
+        /// <summary>
         /// Cập nhật thông tin của một người giao hàng
         /// </summary>
         /// <param name="data"></param>

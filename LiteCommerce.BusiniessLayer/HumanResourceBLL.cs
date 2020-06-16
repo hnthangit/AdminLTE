@@ -25,13 +25,13 @@ namespace LiteCommerce.BusiniessLayer
         /// <param name="pageSize"></param>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        public static List<Employee> Employee_List(int page, int pageSize, string searchValue)
+        public static List<Employee> Employee_List(int page, int pageSize, string searchValue, string country)
         {
             if (page < 1)
                 page = 1;
             if (pageSize <= 0)
                 pageSize = 30;
-            return EmployeeDB.List(page, pageSize, searchValue);
+            return EmployeeDB.List(page, pageSize, searchValue,country);
         }
 
         /// <summary>
@@ -39,9 +39,9 @@ namespace LiteCommerce.BusiniessLayer
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        public static int Employee_Count(string searchValue)
+        public static int Employee_Count(string searchValue,string country)
         {
-            return EmployeeDB.Count(searchValue);
+            return EmployeeDB.Count(searchValue,country);
         }
 
         /// <summary>
@@ -82,6 +82,15 @@ namespace LiteCommerce.BusiniessLayer
         public static bool Employee_Delete(int[] employeeIDs)
         {
             return EmployeeDB.Delete(employeeIDs);
+        }
+
+        /// <summary>
+        /// Lấy thông tin gồm mã nhân viên, họ tên
+        /// </summary>
+        /// <returns></returns>
+        public static List<Employee> Employee_List()
+        {
+            return EmployeeDB.List();
         }
 
         #endregion Employee

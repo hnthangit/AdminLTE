@@ -1,0 +1,260 @@
+﻿@model LiteCommerce.DomainModels.Order
+@{
+
+}
+<div class="box box-primary">
+
+    <form action="~/Order/Input" method="post" enctype="multipart/form-data">
+        <div class="box-body">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                <h4 style="font-weight: 600">Information Order</h4>
+                <a href="~/Product" style="margin-right: 10px;" class="pull-right">Back to list</a>
+            </div>
+            <span style="color: red">@TempData["emptyFile"]</span>
+            <div class="row">
+                <input type="hidden" name="OrderID" value="@Model.OrderID" />
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Customer </label>
+                        <select class="form-control" name="CustomerID">
+                            @foreach (var item in LiteCommerce.Admin.SelectListHelper.Customers())
+                            {
+                                if (item.Value == Model.CustomerID)
+                                {
+                                    <option selected="selected" value="@item.Value">@item.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Employee</label>
+                        <select class="form-control" name="EmployeeID">
+                            @foreach (var item in LiteCommerce.Admin.SelectListHelper.Employees())
+                            {
+                                if (item.Value == Model.EmployeeID.ToString())
+                                {
+                                    <option selected="selected" value="@item.Value">@item.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Shipper</label>
+                        <select class="form-control" name="EmployeeID">
+                            @foreach (var item in LiteCommerce.Admin.SelectListHelper.Shipper())
+                            {
+                                if (item.Value == Model.ShipperID.ToString())
+                                {
+                                    <option selected="selected" value="@item.Value">@item.Text</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Value">@item.Text</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">OrderDate</label>
+                        <input required type="text" class="form-control" id="exampleInputPassword1" placeholder="Quantity Per Unit" name="QuantityPerUnit" value="@String.Format("{0:MM/dd/yyyy}", Model.OrderDate)">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">RequiredDate</label>
+                        <input required type="text" class="form-control" id="exampleInputPassword1" name="UnitPrice" value="@String.Format("{0:MM/dd/yyyy}", Model.RequiredDate)">
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">ShippedDate</label>
+                        <input required type="text" class="form-control" id="exampleInputPassword1" name="UnitPrice" value="@String.Format("{0:MM/dd/yyyy}", Model.ShippedDate)">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Freight</label>
+                        <input required class="form-control" placeholder="Description" name="Freight" value="@Model.Freight" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">ShipAddress</label>
+                        <input required class="form-control" placeholder="Description" name="ShipAddress" value="@Model.ShipAddress" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">ShipAddress</label>
+                        <input required class="form-control" rows="10" placeholder="Description" name="ShipCountry" value="@Model.ShipCountry" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">ShipCountry</label>
+                        <input required class="form-control" rows="10" placeholder="Description" name="ShipCountry" value="@Model.ShipCountry" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12">
+                <button type="submit" style="margin-right: 10px" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+                <a href="~/Order" class="btn btn-danger">Cancel</a>
+            </div>
+        </div>
+    </form>
+    <!-- /.box-body -->
+
+    @if (Model.OrderID != 0)
+    {
+        <h4 style="font-weight: 600; margin-bottom: 20px; margin-left: 12px">Order Detail</h4>
+        <form action="~/Product/DeleteProductAttribute" method="post">
+            <div class="col-sm-8">
+            </div>
+            <div class="col-sm-4 text-right">
+                <button type="button" data-toggle="modal" data-target="#add-product_attr" class="btn btn-success"><i class="fa fa-plus"></i> Add Order Detail</button>
+                <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Delete Order Detail</button>
+            </div>
+            <input type="hidden" name="productID" value="@Model.OrderID" />
+            <table class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>
+                            <input type="checkbox" name="name" value="" class="listCheck" />
+                        </th>
+                        <th class="text-center">#</th>
+                        <th hidden></th>
+                        <th>Product Company name</th>
+                        <th>Unit price</th>
+                        <th>quantity</th>
+                        <th>Discount</th>
+                        <th style="width: 80px" class="text-center">Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewData["OrderDetail"] != null)
+                    {
+                        foreach (var item in ViewData["OrderDetail"] as List<LiteCommerce.DomainModels.OrderDetail>)
+                        {
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="OrderID" value="@item.OrderID" class="checkItem" />
+                                </td>
+                                <td>
+                                    @item.OrderID
+                                </td>
+                                <td>
+                                    @LiteCommerce.BusiniessLayer.CatalogBLL.GetProduct(item.ProductID).ProductName
+                                </td>
+                                <td>
+                                    @item.UnitPrice
+                                </td>
+                                <td>@item.Quantity</td>
+                                <td>@item.Discount</td>
+                                <td class="text-center">
+                                    <button class="btn btn-default edit-product_attr" type="button" data-toggle="modal" data-target="#edit-product_attr_@item.OrderID"><i class="fa fa-edit"></i></button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </form>
+    }
+</div>
+<div class="modal fade" id="add-product_attr" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title">ADD ORDER DETAIL</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="~/Order/InputOrderDetail" method="post">
+                <div class="modal-body">
+                    <input type="hidden" name="AttributeID" value="0" />
+                    <input type="hidden" name="OrderID" value="@Model.OrderID" />
+                    <div class="form-group">
+                        <label>Product Company name </label>
+                        <input class="form-control" type="text" name="ProductID" value="" />
+                    </div>
+                    <div class="form-group">
+                        <label>Unit price</label>
+                        <input class="form-control" type="text" name="UnitPrice" value="" />
+                    </div>
+                    <div class="form-group">
+                        <label>Quantity</label>
+                        <input class="form-control" type="number" name="Quantity" value="" />
+                    </div>
+                    <div class="form-group">
+                        <label>Discount</label>
+                        <input class="form-control" type="number" name="Discount" value="" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@if (ViewData["OrderDetail"] != null)
+{
+    foreach (var item in ViewData["OrderDetail"] as List<LiteCommerce.DomainModels.OrderDetail>)
+    {
+        <div class="modal fade" id="edit-product_attr_@item.OrderID" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary">
+                        <h4 class="modal-title">EDIT ORDER DETAIL</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form action="~/Order/InputOrderDetail" method="post">
+                        <div class="modal-body">
+                            <input type="hidden" class="AttributeID" name="AttributeID" value="@item.OrderID" />
+                            <input type="hidden" class="ProductID" name="ProductID" value="@Model.OrderID" />
+                            <div class="form-group">
+                                <label>Product Company Name </label>
+                                <input type="hidden" value="@item.OrderID" />
+                                <input class="AttributeName form-control" type="text" name="ProductID" value="@item.ProductID" />
+                            </div>
+                            <div class="form-group">
+                                <label>UnitPrice</label>
+                                <input class="AttributeValue form-control" type="text" name="UnitPrice" value="@item.UnitPrice" />
+                            </div>
+                            <div class="form-group">
+                                <label>Quantity</label>
+                                <input class="DisplayOrder form-control" type="number" name="Quantity" value="@item.Quantity" />
+                            </div>
+                            <div class="form-group">
+                                <label>Discount</label>
+                                <input class="DisplayOrder form-control" type="number" name="Discount" value="@item.Discount" />
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+}

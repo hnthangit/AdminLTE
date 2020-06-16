@@ -64,9 +64,8 @@
             There are <b>@Model.RowCount</b> Products found. Page @Model.Page/ @Model.PageCount.
         </div>
         <div class="col-md-4 text-right">
-
             <div class="btn-group">
-                <a href="~/Product/Control" class="btn btn-sm btn-success">Add Product</a>
+                <a href="~/Product/Input" class="btn btn-sm btn-success">Add Product</a>
                 <button type="submit" name="method" value="delete" class="btn btn-sm btn-danger">Delete Product</button>
             </div>
         </div>
@@ -136,7 +135,7 @@
             @Html.ValidationSummary()
             <div class="box-footer clearfix">
                 <ul class="pagination pagination-sm no-margin pull-right">
-                    <li><a href="~/Supplier/Index?page=1?searchValue=@Model.searchValue"><<</a></li>
+                    <li><a href="~/Product/Index?page=1?searchValue=@Model.searchValue"><<</a></li>
                     @for (int page = 1; page <= Model.PageCount; page++)
                     {
                         <li><a href="~/Product/Index?page=@page&searchValue=@Model.searchValue&companyName=@Model.companyName&categoryName=@Model.categoryName">@page</a></li>

@@ -45,20 +45,33 @@ namespace LiteCommerce.DataLayer
         Employee Get(int employeeID);
 
         /// <summary>
+        /// Kiểm tra email khi thêm nhân viên đã tồn tại hay chưa
+        /// </summary>
+        /// <param name="email">Email nhập vào</param>
+        /// <returns>true nếu đã tồn tại và ngược lại thì false</returns>
+        bool GetEmail(string email);
+
+        /// <summary>
         /// Danh sách các nhân viên phân trang
         /// </summary>
         /// <param name="page"></param>
         /// <param name="pageSize"></param>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        List<Employee> List(int page, int pageSize, string searchValue);
+        List<Employee> List(int page, int pageSize, string searchValue,string country);
+
+        /// <summary>
+        /// Danh sách tất cả các nhan viên
+        /// </summary>
+        /// <returns></returns>
+        List<Employee> List();
 
         /// <summary>
         /// Đếm số lượng truy vấn tìm được
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        int Count(string searchValue);
+        int Count(string searchValue,string country);
 
         /// <summary>
         /// Kiểm tra đăng nhập

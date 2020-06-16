@@ -5,7 +5,7 @@
 
 <div class="box box-primary">
     <div class="box-body">
-        <form role="form" action="~/Employee/Input" method="post" enctype = "multipart/form-data">
+        <form action="~/Employee/Input" method="post" enctype="multipart/form-data">
             <div class="box-body">
                 <div class="row">
                     <div class="col-sm-4">
@@ -75,6 +75,9 @@
                                     }
                                 }
                             </select>
+                            <span style="color:red;">
+                                @Html.ValidationMessage("errorAddr")
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -89,6 +92,9 @@
                         <div class="form-group">
                             <label for="exampleInputPassword1">Email</label>
                             <input type="email" name="Email" class="form-control" id="exampleInputPassword1" placeholder="Email" value="@Model.Email">
+                            <span style="color:red;">
+                                @Html.ValidationMessage("errorEmailDuplicate")
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -97,13 +103,15 @@
                         <div class="form-group">
                             <label for="exampleInputPassword1">Photo Path</label>
                             <input name="files" type="file" class="form-control" id="files" value="@Model.PhotoPath">
-                            <img src="~/Images/@Model.PhotoPath" width="100px" name="files" />
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Password</label>
                             <input type="password" name="Password" class="form-control" id="exampleInputPassword1" placeholder="Password" value="@Model.Password">
+                            <span style="color:red;">
+                                @Html.ValidationMessage("ErrorPassword")
+                            </span>
                         </div>
                     </div>
                     <div class="col-sm-12">
@@ -115,6 +123,7 @@
                 </div>
             </div>
             @Html.ValidationSummary()
+            
             <!-- /.box-body -->
             <div class="box-footer">
                 <div class="pull-right">

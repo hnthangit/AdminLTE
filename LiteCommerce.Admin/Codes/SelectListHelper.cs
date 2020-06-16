@@ -28,7 +28,7 @@ namespace LiteCommerce.Admin
             List<SelectListItem> list = new List<SelectListItem>();
             if (allowSelectAll)
             {
-                list.Add(new SelectListItem() { Value = "0", Text = "-- All Countries --" });
+                list.Add(new SelectListItem() { Value = "", Text = "-- All Countries --" });
             }
             foreach (var countries in CatalogBLL.Country_List())
             {
@@ -82,6 +82,75 @@ namespace LiteCommerce.Admin
                 {
                     Value = category.CategoryID.ToString(),
                     Text = category.CategoryName
+                });
+            }
+            return list;
+        }
+
+        /// <summary>
+        /// Danh sách SelectListItem cho Customer
+        /// </summary>
+        /// <param name="allowSelectAll"></param>
+        /// <returns></returns>
+        public static List<SelectListItem> Customers(bool allowSelectAll = true)
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            if (allowSelectAll)
+            {
+                list.Add(new SelectListItem() { Value = "0", Text = "-- All Customer Company Name --" });
+            }
+            foreach (var customer in CatalogBLL.Customer_List())
+            {
+                list.Add(new SelectListItem()
+                {
+                    Value = customer.CustomerID.ToString(),
+                    Text = customer.CompanyName
+                });
+            }
+            return list;
+        }
+
+        /// <summary>
+        /// Danh sách SelectListItem cho Employee
+        /// </summary>
+        /// <param name="allowSelectAll"></param>
+        /// <returns></returns>
+        public static List<SelectListItem> Employees(bool allowSelectAll = true)
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            if (allowSelectAll)
+            {
+                list.Add(new SelectListItem() { Value = "0", Text = "-- All Employee FullName --" });
+            }
+            foreach (var employee in HumanResourceBLL.Employee_List())
+            {
+                list.Add(new SelectListItem()
+                {
+                    Value = employee.EmployeeID.ToString(),
+                    Text = employee.FirstName + employee.LastName
+                });
+            }
+            return list;
+        }
+
+        /// <summary>
+        /// Danh sách SelectListItem cho Shipper
+        /// </summary>
+        /// <param name="allowSelectAll"></param>
+        /// <returns></returns>
+        public static List<SelectListItem> Shipper(bool allowSelectAll = true)
+        {
+            List<SelectListItem> list = new List<SelectListItem>();
+            if (allowSelectAll)
+            {
+                list.Add(new SelectListItem() { Value = "0", Text = "-- All Shipper --" });
+            }
+            foreach (var shipper in CatalogBLL.Shipper_List())
+            {
+                list.Add(new SelectListItem()
+                {
+                    Value = shipper.ShipperID.ToString(),
+                    Text = shipper.CompanyName
                 });
             }
             return list;

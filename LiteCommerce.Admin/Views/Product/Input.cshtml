@@ -70,13 +70,7 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Photo Path</label>
-                        @if(Model.PhotoPath == "") { 
-                            <input type="file" class="form-control" value="@Model.PhotoPath" id="exampleInputPassword1" name="file" accept="image/x-png, image/gif, image/jpeg">
-                        }
-                        else
-                        {
-                            <img class="form-control" style="width:300px; height:300px" src="~/Images/@Model.PhotoPath" />
-                        }
+                        <input type="file" class="form-control" value="@Model.PhotoPath" id="exampleInputPassword1" name="file" accept="image/x-png, image/gif, image/jpeg">
                     </div>
                 </div>
                 <div class="col-sm-12">

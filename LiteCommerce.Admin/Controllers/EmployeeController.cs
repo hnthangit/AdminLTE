@@ -14,15 +14,16 @@ namespace LiteCommerce.Admin.Controllers
     public class EmployeeController : Controller
     {
         // GET: Employee
-        public ActionResult Index(int page = 1, string searchValue = "")
+        public ActionResult Index(int page = 1, string searchValue = "",string country="")
         {
             var model = new Models.EmployeePaginationResult()
             {
                 Page = page,
                 PageSize = AppSetting.DefaultPageSize,
-                RowCount = HumanResourceBLL.Employee_Count(searchValue),
-                Data = HumanResourceBLL.Employee_List(page, AppSetting.DefaultPageSize, searchValue),
+                RowCount = HumanResourceBLL.Employee_Count(searchValue,country),
+                Data = HumanResourceBLL.Employee_List(page, AppSetting.DefaultPageSize, searchValue,country),
                 searchValue = searchValue,
+                country = country,
             };
             return View(model);
         }
@@ -53,8 +54,32 @@ namespace LiteCommerce.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Input(Employee data, HttpPostedFileBase files)
+        public ActionResult Input(Employee data, HttpPostedFileBase files = null, string Email = "")
         {
+            if (data.Country == "null")
+            {
+                ModelState.AddModelError("errorAddr", "Vui lòng chọn quốc gia");
+            }
+            if (data.Notes == null)
+            {
+                data.Notes = "";
+            }
+            if (data.Address == null)
+            {
+                data.Address = "";
+            }
+            if (data.HomePhone == null)
+            {
+                data.HomePhone = "";
+            }
+            if (data.City == null)
+            {
+                data.City = "";
+            }
+            if (data.PhotoPath == null)
+            {
+                data.PhotoPath = "";
+            }
             if (!ModelState.IsValid)
             {
                 return View(data);
@@ -63,11 +88,9 @@ namespace LiteCommerce.Admin.Controllers
                 ModelState.AddModelError("ErrorFirstName", "First name is required");
             if (string.IsNullOrEmpty(data.LastName))
                 ModelState.AddModelError("ErrorLastName", "Last Name is required");
-            if (string.IsNullOrEmpty(data.Title))
-            {
-                data.Title = "";
-            }
-            if (string.IsNullOrEmpty(data.Email))
+            if (string.IsNullOrEmpty(data.Password))
+                ModelState.AddModelError("ErrorPassword", "Password is required");
+            /*if (string.IsNullOrEmpty(data.Email))
             {
                 data.Email = "";
             }
@@ -82,21 +105,34 @@ namespace LiteCommerce.Admin.Controllers
             if (string.IsNullOrEmpty(data.HomePhone))
             {
                 data.HomePhone = "";
+            }*/
+            if (files != null)
+            {
+                string get = DateTime.Now.ToString("ddMMyyyhhmmss");
+                string fileExtension = Path.GetExtension(files.FileName);
+                string fileName = get + fileExtension;
+                string path = Path.Combine(Server.MapPath("~/Images"), fileName);
+                data.PhotoPath = fileName;
+                files.SaveAs(path);
             }
-            string get = DateTime.Now.ToString("ddMMyyyhhmmss");
-            string fileExtension = Path.GetExtension(files.FileName);
-            string fileName = get + fileExtension;
-            string path = Path.Combine(Server.MapPath("~/Images"), fileName);
-            data.PhotoPath = fileName;
-            files.SaveAs(path);
             if (!EncodeMD5.IsMD5(data.Password))
             {
                 data.Password = EncodeMD5.GetMD5(data.Password);
             }
             if (data.EmployeeID == 0)
             {
-                int employeeID = HumanResourceBLL.Employee_Add(data);
-                return RedirectToAction("Index");
+                bool result = AccountBLL.GetEmail(Email);
+                if (result)
+                {
+                    ModelState.AddModelError("errorEmailDuplicate", "Email đã tồn tại. Vui lòng nhập email khác!");
+                    return View();
+                }
+                else
+                {
+                    
+                    int employeeID = HumanResourceBLL.Employee_Add(data);
+                    return RedirectToAction("Index");
+                }
             }
             else
             {

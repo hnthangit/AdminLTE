@@ -20,6 +20,8 @@ namespace LiteCommerce.BusiniessLayer
         private static IOrderDAL OrderDB { get; set; }
         private static ICountryDAL CountryDB { get; set; }
 
+        private static IOrderDetailDAL OrderDetailDB { get; set; }
+
         #endregion Declare variable
 
         /// <summary>
@@ -36,6 +38,7 @@ namespace LiteCommerce.BusiniessLayer
             ProductAttributeDB = new DataLayer.SqlServer.ProductAttributeDAL(connectionString);
             OrderDB = new DataLayer.SqlServer.OrderDAL(connectionString);
             CountryDB = new DataLayer.SqlServer.CountryDAL(connectionString);
+            OrderDetailDB = new DataLayer.SqlServer.OrderDetailDAL(connectionString);
         }
 
         #region Supplier
@@ -132,6 +135,15 @@ namespace LiteCommerce.BusiniessLayer
         }
 
         /// <summary>
+        /// Lấy thông tin của một khách hàng
+        /// </summary>
+        /// <returns></returns>
+        public static List<Customer> Customer_List()
+        {
+            return CustomerDB.List();
+        }
+
+        /// <summary>
         /// Đếm số lượng các bản ghi tìm được
         /// </summary>
         /// <param name="searchValue"></param>
@@ -194,6 +206,15 @@ namespace LiteCommerce.BusiniessLayer
             if (pageSize <= 0)
                 pageSize = 9999999;
             return ShipperDB.List(page, pageSize, searchValue);
+        }
+
+        /// <summary>
+        /// Thông tin của người giao hàng
+        /// </summary>
+        /// <returns></returns>
+        public static List<Shipper> Shipper_List()
+        {
+            return ShipperDB.List();
         }
 
         /// <summary>
@@ -471,7 +492,7 @@ namespace LiteCommerce.BusiniessLayer
         /// </summary>
         /// <param name="data">Dữ liệu của một đơn hàng</param>
         /// <returns>Mã đơn hàng sau khi thêm</returns>
-        public static int Add(Order data)
+        public static int Order_Add(Order data)
         {
             return OrderDB.Add(data);
         }
@@ -481,7 +502,7 @@ namespace LiteCommerce.BusiniessLayer
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public static bool Update(Order data)
+        public static bool Order_Update(Order data)
         {
             return OrderDB.Update(data);
         }
@@ -491,7 +512,7 @@ namespace LiteCommerce.BusiniessLayer
         /// </summary>
         /// <param name="orderIDs"></param>
         /// <returns></returns>
-        public static bool Delete(int[] orderIDs)
+        public static bool Order_Delete(int[] orderIDs)
         {
             return OrderDB.Delete(orderIDs);
         }
@@ -501,7 +522,7 @@ namespace LiteCommerce.BusiniessLayer
         /// </summary>
         /// <param name="orderID">Mã đơn hàng</param>
         /// <returns></returns>
-        public static Order Get(int orderID)
+        public static Order GetOrder(int orderID)
         {
             return OrderDB.Get(orderID);
         }
@@ -516,7 +537,7 @@ namespace LiteCommerce.BusiniessLayer
         /// <param name="employeeId"></param>
         /// <param name="shipperId"></param>
         /// <returns></returns>
-        public static List<Order> List(int page, int pageSize, string searchValue, int customerId, int employeeId, int shipperId)
+        public static List<Order> Order_List(int page, int pageSize, string searchValue, string customerId, int employeeId, int shipperId)
         {
             return OrderDB.List(page, pageSize, searchValue, customerId, employeeId, shipperId);
         }
@@ -529,11 +550,18 @@ namespace LiteCommerce.BusiniessLayer
         /// <param name="employeeId">Mã nhân viên</param>
         /// <param name="shipperId">Mã người giao hàng</param>
         /// <returns>Số kết quả tìm được</returns>
-        public static int Count(string searchValue, int customerId, int employeeId, int shipperId)
+        public static int Order_Count(string searchValue, string customerId, int employeeId, int shipperId)
         {
             return OrderDB.Count(searchValue, customerId, employeeId, shipperId);
         }
 
         #endregion Order
+
+        #region OrderDetail
+        public static List<OrderDetail> OrderDetails_List(int orderID)
+        {
+            return OrderDetailDB.List(orderID);
+        }
+        #endregion OrderDetail
     }
 }

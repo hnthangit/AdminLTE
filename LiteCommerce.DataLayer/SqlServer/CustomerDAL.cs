@@ -211,6 +211,44 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
+        /// Lấy thông tin của một khách hàng.
+        /// Gồm: mã khách hàng và tên công ty
+        /// </summary>
+        /// <returns></returns>
+        public List<Customer> List()
+        {
+            List<Customer> data = new List<Customer>();
+            //TODO: Truy vấn dữ liệu từ CSDL ...
+            using (SqlConnection connection = new SqlConnection(connectionString)) //tao 1 doi tuong ket noi csdl
+            {
+                // mo ket noi
+                connection.Open();
+                using (SqlCommand cmd = new SqlCommand())  //tao doi tuong command chua 1 cau lenh dung de thuc thi yeu cau truy van du lieu
+                {
+                    //chuoi chua cau lenh can thuc thi
+                    cmd.CommandText = @"select DISTINCT CustomerID, CompanyName from Customers order by CompanyName";
+                    cmd.CommandType = CommandType.Text; //cho biet lenh thuc thi la lenh dang gi
+                    cmd.Connection = connection;
+
+                    using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        //truyen du lieu
+                        while (dbReader.Read())
+                        {
+                            data.Add(new Customer()
+                            {
+                                CustomerID = Convert.ToString(dbReader["CustomerID"]),
+                                CompanyName = Convert.ToString(dbReader["CompanyName"]),
+                            });
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            return data;
+        }
+
+        /// <summary>
         /// Cập nhật thông tin một khách hàng
         /// </summary>
         /// <param name="data"></param>

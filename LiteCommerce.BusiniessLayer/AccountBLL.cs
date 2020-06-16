@@ -77,6 +77,10 @@ namespace LiteCommerce.BusiniessLayer
             return UserAccountDB.Authorize(username, password);
         }
 
+        public static bool GetEmail(string email)
+        {
+            return EmployeeDB.GetEmail(email);
+        }
         #endregion Employee
     }
 }

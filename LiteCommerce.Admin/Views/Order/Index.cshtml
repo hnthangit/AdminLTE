@@ -1,7 +1,169 @@
-﻿
+﻿@model LiteCommerce.Admin.Models.OrderPaginationResult
 @{
     ViewBag.Title = "Order";
 }
 
-<h2>Index</h2>
+<div class="box box-info">
+    <div class="box-body">
+        <form action="~/Order" method="get">
+            <div class="row">
+                <div class="col-sm-3">
+                    <select name="customerId" class="form-control">
+                        <option value="@Model.customerId">--Choose Employee--</option>
+                        @foreach (var item in LiteCommerce.BusiniessLayer.CatalogBLL.Customer_List())
+                        {
+                            if (Model.customerId.Equals(item.CustomerID))
+                            {
+                                <option value="@item.CustomerID" selected>@item.CompanyName</option>
 
+                            }
+                            else
+                            {
+                                <option value="@item.CustomerID">@item.CompanyName</option>
+
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <select name="employeeId" class="form-control">
+                        <option value="0">--Choose Employee--</option>
+                        @foreach (var item in LiteCommerce.BusiniessLayer.HumanResourceBLL.Employee_List())
+                        {
+                            if (Model.employeeId == item.EmployeeID)
+                            {
+                    <option value="@item.EmployeeID" selected>@item.LastName @item.FirstName</option>
+
+                            }
+                            else
+                            {
+                    <option value="@item.EmployeeID">@item.LastName @item.FirstName</option>
+
+                            }
+                        }
+                    </select>
+                </div>
+                <div class="col-sm-3">
+                    <select name="shipperId" class="form-control">
+                        <option value="0">--Choose Shipper--</option>
+                        @foreach (var item in LiteCommerce.BusiniessLayer.CatalogBLL.Shipper_List())
+                        {
+                            if (Model.shipperId == item.ShipperID)
+                            {
+                                <option value="@item.ShipperID" selected>@item.CompanyName</option>
+
+                            }
+                            else
+                            {
+                                <option value="@item.ShipperID">@item.CompanyName</option>
+                            }
+                        }
+                    </select>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="input-group input-group-sm">
+                        <input type="text" name="searchValue" class="form-control" placeholder="Input search values...." value="@Model.searchValue">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-info btn-flat">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<form action="~/Order/Delete" method="post">
+    <div class="container-fluid row" style="margin-bottom:10px">
+        <div class="col-sm-8">
+            There are <b>@Model.RowCount</b> Orders found. Page @Model.Page/ @Model.PageCount.
+        </div>
+        <div class="col-md-4 text-right">
+
+            <div class="btn-group">
+                <a href="~/Order/Input" class="btn btn-sm btn-success">Add Order</a>
+                <button type="submit" name="method" value="delete" class="btn btn-sm btn-danger">Delete Order</button>
+            </div>
+        </div>
+    </div>
+    <div class="box box-success">
+        <div class="box-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="sw-30">
+                            <input type="checkbox" />
+                        </th>
+                        <th class="sw-50">#</th>
+                        <th class="sw-100">Customer Company Name</th>
+                        <th class="sw-200">Employee FullName</th>
+                        <th class="sw-200">Shipper Company Name</th>
+                        <th class="sw-200">Info Date</th>
+                        <th class="sw-200">Freight</th>
+                        <th class="sw-200">Info</th>
+                        <th class="sw-100"></th>
+                    </tr>
+                </thead>
+
+                <tbody class="text-align">
+                    @foreach (var item in Model.Data)
+                    {
+
+                        <tr>
+                            <td>
+                                <input type="checkbox" name="productIDs" value="@item.OrderID" />
+                            </td>
+                            <td>
+                                @item.OrderID
+                            </td>
+                            <td>
+                                @LiteCommerce.BusiniessLayer.CatalogBLL.GetCustomer(item.CustomerID).CompanyName
+                            </td>
+                            <td>
+                                @LiteCommerce.BusiniessLayer.HumanResourceBLL.GetEmployee(item.EmployeeID).LastName @LiteCommerce.BusiniessLayer.HumanResourceBLL.GetEmployee(item.EmployeeID).FirstName
+                            </td>
+                            <td>
+                                @LiteCommerce.BusiniessLayer.CatalogBLL.GetShipper(item.ShipperID).CompanyName
+                            </td>
+                            <td>
+                                <span class="std-block"><i class="fa fa-shopping-cart" style="font-size: 15px; color:#9b1c31">OrderDate:</i> @item.OrderDate.Day/@item.OrderDate.Month/@item.OrderDate.Year</span>
+                                <span class="std-block"><i class="fa fa-asterisk"style="font-size: 15px; color:#9b1c31">RequiredDate: </i> @item.RequiredDate.Day/@item.RequiredDate.Month/@item.RequiredDate.Year</span>
+                                <span class="std-block"><i class="fa fa-info"style="font-size: 15px; color:#9b1c31">ShippedDate: </i> @item.ShippedDate.Day/@item.ShippedDate.Month/@item.ShippedDate.Year</span>
+                            </td>
+                            <td>
+                                @item.Freight
+                            </td>
+                            <td>
+                                <span class="std-block"><i class="fa fa-info"></i>@item.ShipAddress</span>
+                                <span class="std-block"><i class="fa fa-info"></i>@item.ShipCity</span>
+                                <span class="std-block"><i class="fa fa-info"></i>@item.ShipCountry</span>
+                            </td>
+                            <td class="text-center">
+                                <a href="~/Order/Detail/@item.OrderID" class="btn btn-primary">
+                                    <i class="fa fa-info"></i>
+                                </a>
+                                <!-- Button trigger modal -->
+                                <a href="~/Order/Input/@item.OrderID" class="btn btn-warning">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            @Html.ValidationSummary()
+            <div class="box-footer clearfix">
+                <ul class="pagination pagination-sm no-margin pull-right">
+                    <li><a href="~/Order/Index?page=1?searchValue=@Model.searchValue"><<</a></li>
+                    @for (int page = 1; page <= Model.PageCount; page++)
+                    {
+                        <li><a href="~/Order/Index?page=@page&searchValue=@Model.searchValue&companyName=@Model.companyName&categoryName=@Model.categoryName">@page</a></li>
+                    }
+                    <li><a href="~/Order/Index?page=@Model.PageCount?searchValue=@Model.searchValue">>></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</form>

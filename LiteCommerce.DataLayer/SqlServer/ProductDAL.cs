@@ -11,7 +11,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         private string connectionString;
 
         /// <summary>
-        ///
+        /// Constructor
         /// </summary>
         /// <param name="connectionString"></param>
         public ProductDAL(string connectionString)

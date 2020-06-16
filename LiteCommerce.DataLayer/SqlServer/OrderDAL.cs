@@ -93,18 +93,20 @@ namespace LiteCommerce.DataLayer.SqlServer
         /// <param name="employeeId">Mã nhân viên</param>
         /// <param name="shipperId">Mã người giao hàng</param>
         /// <returns>Số kết quả tìm được</returns>
-        public int Count(string searchValue, int customerId, int employeeId, int shipperId)
+        public int Count(string searchValue, string customerId, int employeeId, int shipperId)
         {
             int rowCount = 0;
             if (!string.IsNullOrEmpty(searchValue))
                 searchValue = "%" + searchValue + "%";
+            if (!string.IsNullOrEmpty(customerId))
+                customerId = "%" + customerId + "%";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.CommandText = @"select COUNT(*) from Orders where ((@searchValue = N'') or(ShipCity like @searchValue)) and
-                                                    ((@customerId = N'') or(CustomerID = @customerId)) and
+                                                    ((@customerId = N'') or(CustomerID like @customerId)) and
                                                    ((@employeeId = N'') or(EmployeeID = @employeeId)) and
                                                     ((@shipperId = N'') or(ShipperID = @shipperId))";
                     cmd.CommandType = CommandType.Text;
@@ -201,11 +203,13 @@ namespace LiteCommerce.DataLayer.SqlServer
         /// <param name="employeeId"></param>
         /// <param name="shipperId"></param>
         /// <returns></returns>
-        public List<Order> List(int page, int pageSize, string searchValue, int customerId, int employeeId, int shipperId)
+        public List<Order> List(int page, int pageSize, string searchValue, string customerId, int employeeId, int shipperId)
         {
             List<Order> data = new List<Order>();
             if (!string.IsNullOrEmpty(searchValue))
                 searchValue = "%" + searchValue + "%";
+            if (!string.IsNullOrEmpty(customerId))
+                customerId = "%" + customerId + "%";
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
@@ -215,10 +219,10 @@ namespace LiteCommerce.DataLayer.SqlServer
                                         from
                                         (
 	                                        select *,
-	                                        ROW_NUMBER() over(order by CustomerID) as RowNumber
+	                                        ROW_NUMBER() over (order by OrderID) as RowNumber
 	                                        from Orders
 	                                        where ((@searchValue = N'') or (ShipCity like @searchValue)) and
-		                                        ((@customerId = N'') or(CustomerID = @customerId)) and
+		                                        ((@customerId = N'') or(CustomerID like @customerId)) and
 		                                        ((@employeeId = N'') or(EmployeeID = @employeeId)) and
 		                                        ((@shipperId = N'') or(ShipperID = @shipperId))
                                         ) as t

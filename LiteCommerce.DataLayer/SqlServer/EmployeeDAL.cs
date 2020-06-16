@@ -92,7 +92,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        public int Count(string searchValue)
+        public int Count(string searchValue,string country)
         {
             int rowCount = 0;
             if (!string.IsNullOrEmpty(searchValue))
@@ -103,11 +103,12 @@ namespace LiteCommerce.DataLayer.SqlServer
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand())  //tao doi tuong command chua 1 cau lenh dung de thuc thi yeu cau truy van du lieu
                 {
-                    cmd.CommandText = "select COUNT(*) from Employees where (@searchValue = N'') or (FirstName like @searchValue)";
+                    cmd.CommandText = "select COUNT(*) from Employees where ((@searchValue = N'') or (FirstName like @searchValue)) and ((@country = N'') or (Country = @Country))";
                     cmd.CommandType = CommandType.Text; //cho biet lenh thuc thi la lenh dang gi
                     cmd.Connection = connection;
 
                     cmd.Parameters.AddWithValue("@searchValue", searchValue);
+                    cmd.Parameters.AddWithValue("@Country", country);
                     rowCount = Convert.ToInt32(cmd.ExecuteScalar());
                 }
                 connection.Close();
@@ -133,7 +134,7 @@ namespace LiteCommerce.DataLayer.SqlServer
                                               AND(EmployeeID NOT IN(SELECT EmployeeID FROM Orders))";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
-                cmd.Parameters.Add("@supplierId", SqlDbType.Int);
+                cmd.Parameters.Add("@employeeID", SqlDbType.Int);
                 foreach (int employeeId in employeeIDs)
                 {
                     cmd.Parameters["@employeeID"].Value = employeeId;
@@ -198,7 +199,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         /// <param name="pageSize"></param>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        public List<Employee> List(int page, int pageSize, string searchValue)
+        public List<Employee> List(int page, int pageSize, string searchValue, string country)
         {
             List<Employee> data = new List<Employee>();
             if (!string.IsNullOrEmpty(searchValue))
@@ -214,7 +215,8 @@ namespace LiteCommerce.DataLayer.SqlServer
 	                                        select * ,
 			                                        ROW_NUMBER() over(order by EmployeeID) as RowNumber
 	                                        from	Employees
-	                                        where	(@searchValue = N'') or (LastName like @searchValue)
+	                                        where	((@searchValue = N'') or (LastName like @searchValue)) and
+                                                    ((@country = N'') or (Country = @Country))
                                         ) as t
                                         where t.RowNumber between (@page -1) * @pageSize + 1 and @page * @pageSize
                                         order by t.RowNumber";
@@ -224,7 +226,7 @@ namespace LiteCommerce.DataLayer.SqlServer
                     cmd.Parameters.AddWithValue("@page", page);
                     cmd.Parameters.AddWithValue("@pageSize", pageSize);
                     cmd.Parameters.AddWithValue("@searchValue", searchValue);
-
+                    cmd.Parameters.AddWithValue("@Country", country);
                     using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
                     {
                         while (dbReader.Read())
@@ -255,6 +257,40 @@ namespace LiteCommerce.DataLayer.SqlServer
         }
 
         /// <summary>
+        /// Lấy danh sách thông tin của một nhân viên.
+        /// Bao gồm: EmployeeID, LastName, FirstName
+        /// </summary>
+        /// <returns></returns>
+        public List<Employee> List()
+        {
+            List<Employee> data = new List<Employee>();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = @"select DISTINCT EmployeeID, LastName, FirstName from Employees order by LastName";
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Connection = connection;
+                    using (SqlDataReader dbReader = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        while (dbReader.Read())
+                        {
+                            data.Add(new Employee()
+                            {
+                                EmployeeID = Convert.ToInt32(dbReader["EmployeeID"]),
+                                LastName = Convert.ToString(dbReader["LastName"]),
+                                FirstName = Convert.ToString(dbReader["FirstName"]),
+                            });
+                        }
+                    }
+                }
+                connection.Close();
+            }
+            return data;
+        }
+
+        /// <summary>
         /// Cập nhật thông tin của nhân viên
         /// </summary>
         /// <param name="data"></param>
@@ -269,21 +305,21 @@ namespace LiteCommerce.DataLayer.SqlServer
                 SqlCommand cmd = new SqlCommand();
                 cmd.CommandText = @"UPDATE Employees
                                     SET
-                                        LastName     =   @LastName,
-                                        FirstName    =   @FirstName,
-                                        Title        =   @Title,
-                                        BirthDate    =   @BirthDate,
-                                        HireDate     =   @HireDate,
-                                        Email        =   @Email,
-                                        Address      =   @Address,
-                                        City         =   @City,
-                                        Country      =   @Country,
-                                        HomePhone    =   @HomePhone,
-                                        Notes        =   @Notes,
-                                        PhotoPath    =   @PhotoPath,
-                                        Password     =   @Password
+                                        LastName = @LastName,
+                                        FirstName = @FirstName,
+                                        Title = @Title,
+                                        BirthDate = @BirthDate,
+                                        HireDate = @HireDate,
+                                        Email = @Email,
+                                        Address = @Address,
+                                        City = @City,
+                                        Country = @Country,
+                                        HomePhone = @HomePhone,
+                                        Notes = @Notes,
+                                        PhotoPath = @PhotoPath,
+                                        Password = @Password
                                     WHERE
-                                        EmployeeID = @EmployeeID;";
+                                        EmployeeID = @EmployeeID";
                 cmd.CommandType = CommandType.Text;
                 cmd.Connection = connection;
 
@@ -411,6 +447,27 @@ namespace LiteCommerce.DataLayer.SqlServer
                 connection.Close();
             }
             return data;
+        }
+
+        public bool GetEmail(string email)
+        {
+            int rowsAffected = 0;
+            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            {
+                connection.Open();
+
+                SqlCommand cmd = new SqlCommand();
+                cmd.CommandText = @"select COUNT(*) from Employees where Email = @Email";
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+
+                cmd.Parameters.AddWithValue("@Email", email);
+
+                rowsAffected = Convert.ToInt32(cmd.ExecuteNonQuery());
+
+                connection.Close();
+            }
+            return rowsAffected > 0;
         }
     }
 }

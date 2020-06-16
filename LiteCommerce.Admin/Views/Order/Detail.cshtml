@@ -1,0 +1,147 @@
+﻿@model LiteCommerce.DomainModels.Order
+@{
+    ViewBag.Title = "Detail";
+}
+
+<div class="box box-info">
+    <div class="box-header with-border">
+        <h3 class="box-title">Information Order</h3>
+        <div class="pull-right"><a href="~/Order">Back to list</a></div>
+    </div>
+    <div class="box-body">
+
+        <form role="form" method="post" action="~/Product/Control">
+            <div class="box-body row">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                </div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <span class="pull-right"><b>Customer Company Name:</b></span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <span>@LiteCommerce.BusiniessLayer.CatalogBLL.GetCustomer(Model.CustomerID).CompanyName</span>
+                                </div>
+                                <div class="col-sm-12" style="border-bottom: 1px solid rgba(0,0,0,0.2); margin: 5px 0;"></div>
+                                <div class="col-sm-8">
+                                    <span class="pull-right"><b>Employee FullName:</b></span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <span>@LiteCommerce.BusiniessLayer.HumanResourceBLL.GetEmployee(Model.EmployeeID).FirstName @LiteCommerce.BusiniessLayer.HumanResourceBLL.GetEmployee(Model.EmployeeID).LastName</span>
+                                </div>
+                                <div class="col-sm-12" style="border-bottom: 1px solid rgba(0,0,0,0.2); margin: 5px 0;"></div>
+                                <div class="col-sm-8">
+                                    <span class="pull-right"><b>Shipper Company Name:</b></span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <span>@LiteCommerce.BusiniessLayer.CatalogBLL.GetShipper(Model.ShipperID).CompanyName</span>
+                                </div>
+                                <div class="col-sm-12" style="border-bottom: 1px solid rgba(0,0,0,0.2); margin: 5px 0;"></div>
+                                <div class="col-sm-8">
+                                    <span class="pull-right"><b>ShipAddress:</b></span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <span>@Model.ShipAddress - @Model.ShipCity - @Model.ShipCountry</span>
+                                </div>
+                                <div class="col-sm-12" style="border-bottom: 1px solid rgba(0,0,0,0.2); margin: 5px 0;"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <span class="pull-right"><b>OrderDate:</b></span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <span>@Model.OrderDate.Day/@Model.OrderDate.Month/@Model.OrderDate.Year</span>
+                                </div>
+                                <div class="col-sm-12" style="border-bottom: 1px solid rgba(0,0,0,0.2); margin: 5px 0;"></div>
+                                <div class="col-sm-8">
+                                    <span class="pull-right"><b>RequiredDate:</b></span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <span>@Model.RequiredDate.Day/@Model.RequiredDate.Month/@Model.RequiredDate.Year</span>
+                                </div>
+                                <div class="col-sm-12" style="border-bottom: 1px solid rgba(0,0,0,0.2); margin: 5px 0;"></div>
+                                <div class="col-sm-8">
+                                    <span class="pull-right"><b>ShippedDate:</b></span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <span>@Model.ShippedDate.Day/@Model.ShippedDate.Month/@Model.ShippedDate.Year</span>
+                                </div>
+                                <div class="col-sm-12" style="border-bottom: 1px solid rgba(0,0,0,0.2); margin: 5px 0;"></div>
+                                <div class="col-sm-8">
+                                    <span class="pull-right"><b>Freight:</b></span>
+                                </div>
+                                <div class="col-sm-4">
+                                    <span>@Model.Freight</span>
+                                </div>
+                                <div class="col-sm-12" style="border-bottom: 1px solid rgba(0,0,0,0.2); margin: 5px 0;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- /.box-body -->
+
+            <div class="box-header with-border">
+                <h3 class="box-title">List Order Detail</h3>
+            </div>
+            <div class="box box-success">
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="sw-30">
+                                    <input type="checkbox" />
+                                </th>
+                                <th class="sw-50">#</th>
+                                <th class="sw-100">Product Name</th>
+                                <th class="sw-200">Unit Price</th>
+                                <th class="sw-200">Quantity</th>
+                                <th class="sw-200">Discount</th>
+                                <th class="sw-100"></th>
+                            </tr>
+                        </thead>
+
+                        <tbody class="text-align">
+                            @foreach (var item in ViewData["OrderDetail"] as List<LiteCommerce.DomainModels.OrderDetail>)
+                            {
+                                <tr>
+                                    <td>
+                                        <input type="checkbox" name="productIDs" value="@item.OrderID" />
+                                    </td>
+                                    <td>
+                                        @item.OrderID
+                                    </td>
+                                    <td>
+                                        @LiteCommerce.BusiniessLayer.CatalogBLL.GetProduct(item.ProductID).ProductName
+                                    </td>
+                                    <td>
+                                        @item.UnitPrice
+                                    </td>
+                                    <td>
+                                        @item.Quantity
+                                    </td>
+                                    <td>
+                                        @item.Discount
+                                    </td>
+                                    <td class="text-center">
+                                        <!-- Button trigger modal -->
+                                        <a href="~/Order/Input/@item.ProductID" class="btn btn-primary">
+                                            <i class="fa fa-info"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="box-footer pull-right">
+            </div>
+        </form>
+    </div>
+</div>
