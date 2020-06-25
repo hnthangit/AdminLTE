@@ -1,4 +1,5 @@
-﻿using System.Security.Principal;
+﻿using System.Linq;
+using System.Security.Principal;
 
 namespace LiteCommerce.Admin
 {
@@ -30,14 +31,18 @@ namespace LiteCommerce.Admin
         /// <returns></returns>
         public bool IsInRole(string role)
         {
-            if (role.Equals(userData.GroupName))
+            /*if (role.Equals(userData.GroupName))
             {
                 return true;
             }
             else
             {
                 return false;
-            }
+            }*/
+            string[] arrListRoles = userData.GroupName.Split(',');
+            if (arrListRoles.Contains(role))
+                return true;
+            return false;
         }
 
         /// <summary>

@@ -1,9 +1,4 @@
 ﻿using LiteCommerce.DomainModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LiteCommerce.DataLayer
 {
@@ -21,5 +16,31 @@ namespace LiteCommerce.DataLayer
         /// <param name="password"></param>
         /// <returns></returns>
         UserAccount Authorize(string userName, string password);
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="emailID"></param>
+        /// <returns></returns>
+        bool IsEmailExist(string emailID);
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="resetCode"></param>
+        /// <returns></returns>
+        UserAccount GetUserByResetPasswordCode(string resetCode);
+
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="ResetPasswordCode"></param>
+        /// <returns></returns>
+        bool AddResetCode(string email, string ResetPasswordCode);
+
+        UserAccount User(string userID);
+
+        bool ChangePassword(string userID, string newPass);
     }
 }

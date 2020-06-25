@@ -29,5 +29,7 @@
         /// Quản lý dữ liệu
         /// </summary>
         public const string ACCOUNTANT = "Accountant";
+
+        public const string FULL = "Saleman,Accountant,Adminstrator";
     }
 }

@@ -5,14 +5,14 @@
 
 <div class="box box-primary">
     <div class="box-body">
-        <form action="~/Employee/Input" method="post" enctype="multipart/form-data">
+        <form action="~/Employee/Input" method="post" enctype="multipart/form-data" name="register">
             <div class="box-body">
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <input name="employeeID" type="hidden" value="@Model.EmployeeID" />
+                            @Html.Hidden("employeeID", Model.EmployeeID)
                             <label for="exampleInputPassword1">Last Name <span style="color:red;">(*)</span></label>
-                            <input type="text" name="LastName" class="form-control" id="exampleInputPassword1" placeholder="Last Name" value="@Model.LastName">
+                            @Html.TextBox("LastName", Model.LastName, new { placeholder = "LastName", @class = "form-control" })
                             <span style="color:red;">
                                 @Html.ValidationMessage("ErrorLastName")
                             </span>
@@ -21,7 +21,7 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="exampleInputPassword1">First Name <span style="color:red;">(*)</span></label>
-                            <input type="text" name="FirstName" class="form-control" id="exampleInputPassword1" placeholder="First Name" value="@Model.FirstName">
+                            @Html.TextBox("FirstName", Model.FirstName, new { placeholder = "FirstName", @class = "form-control" })
                             <span style="color:red;">
                                 @Html.ValidationMessage("ErrorFirstName")
                             </span>
@@ -30,41 +30,40 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Title</label>
-                            <input type="text" name="Title" class="form-control" id="exampleInputPassword1" placeholder="Title" value="@Model.Title">
+                            @Html.TextBox("Title", Model.Title, new { placeholder = "FirstName", @class = "form-control" })
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="exampleInputPassword1">BirthDate</label>
-                            <input name="BirthDate" value="@String.Format("{0:MM/dd/yyyy}", Model.BirthDate)" type="text" class="form-control" id="exampleInputPassword1">
+                            <input name="BirthDate" value="@String.Format("{0:MM/dd/yyyy}", Model.BirthDate)" type="text" class="form-control" id="BirthDate">
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="exampleInputPassword1">HireDate</label>
-                            <input name="HireDate" value="@String.Format("{0:MM/dd/yyyy}", Model.HireDate)" type="text" class="form-control" id="exampleInputPassword1">
+                            <input name="HireDate" value="@String.Format("{0:MM/dd/yyyy}", Model.HireDate)" type="text" class="form-control" id="HireDate">
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Address</label>
-                    <input type="text" name="Address" class="form-control" id="exampleInputPassword1" placeholder="Address" value="@Model.Address">
+                    @Html.TextBox("Address", Model.Address, new { placeholder = "Address", @class = "form-control" })
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="exampleInputPassword1">City</label>
-                            <input type="text" name="City" class="form-control" id="exampleInputPassword1" placeholder="City" value="@Model.City">
+                            @Html.TextBox("City", Model.City, new { placeholder = "City", @class = "form-control" })
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Country</label>
-                            <select class="form-control" name="Country">
+                            <select class="form-control" name="Country" id="Country">
                                 <option value="null">-- Choose Country --</option>
                                 @foreach (var country in SelectListHelper.ListOfCountries())
                                 {
-                                    //TODO: Làm lại list sang razor
                                     if (country.CountryName == Model.Country)
                                     {
                                         <option value="@country.CountryName" selected="selected">@country.CountryName</option>
@@ -85,13 +84,13 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Home Phone</label>
-                            <input type="text" name="HomePhone" class="form-control" id="exampleInputPassword1" placeholder="Home Phone" value="@Model.HomePhone">
+                            @Html.TextBox("HomePhone", Model.HomePhone, new { placeholder = "HomePhone", @class = "form-control" })
                         </div>
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Email</label>
-                            <input type="email" name="Email" class="form-control" id="exampleInputPassword1" placeholder="Email" value="@Model.Email">
+                            <input type="email" id="Email" name="Email" class="form-control" placeholder="Email" value="@Model.Email">
                             <span style="color:red;">
                                 @Html.ValidationMessage("errorEmailDuplicate")
                             </span>
@@ -108,7 +107,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Password</label>
-                            <input type="password" name="Password" class="form-control" id="exampleInputPassword1" placeholder="Password" value="@Model.Password">
+                            @Html.Password("Password", Model.Password, new { placeholder = "Password", @class = "form-control" })
                             <span style="color:red;">
                                 @Html.ValidationMessage("ErrorPassword")
                             </span>
@@ -117,20 +116,95 @@
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label for="exampleInputPassword1">Note</label>
-                            <input type="text" name="Notes" class="form-control" id="exampleInputPassword1" value="@Model.Notes">
+                            @Html.TextBox("Notes", Model.Notes, new { placeholder = "Notes", @class = "form-control" })
                         </div>
                     </div>
                 </div>
             </div>
-            @Html.ValidationSummary()
-            
+            @*
+                @Html.ValidationSummary()
+            *@
+
             <!-- /.box-body -->
             <div class="box-footer">
                 <div class="pull-right">
-                    <button type="submit" style="margin-right: 10px" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+                    <button type="submit" name="submit" id="submit" style="margin-right: 10px" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
                     <a href="~/Employee" class="btn btn-danger">Cancel</a>
                 </div>
             </div>
         </form>
     </div>
 </div>
+<script type="text/javascript">
+    var input = document.forms['register'].getElementsByTagName('input');
+    var run_onchange = false;
+    function valid() {
+        var errors = false;
+        var reg_madichvu = /(DV)([0-9]{3}\b)/g;
+
+        for (var i = 0; i < input.length; i++) {
+            var value = input[i].value;
+            var id = input[i].getAttribute('id');
+            // creat spam save error info
+            var span = document.createElement('span');
+
+            // if span had exist -> remove
+            var p = input[i].parentNode;
+            if (p.lastChild.nodeName == 'SPAN') {
+                p.removeChild(p.lastChild);
+            }
+            //check null
+            if (value === '' & ((id === 'LastName') || (id === 'FirstName') || (id === 'Country') || (id === 'files') || (id === 'Password') || (id === 'Email') )) {
+                span.innerHTML = 'This element is required';
+
+            } else {
+                if (id === 'LastName') {
+                    if (value.length > 20) {
+                        span.innerHTML = 'Max length of last name is 20 character';
+                    }
+                }
+                //check another error
+                if (id === 'FirstName') {
+                    if (value.length > 10) {
+                        span.innerHTML = 'Max length of first name is 10 character';
+                    }
+                }
+                if (id === 'Title') {
+                    if (value.length > 30) {
+                        span.innerHTML = 'Max length of Title is 30 character';
+                    }
+                }
+            }
+            //neu co loi chen span vao ho so chay onchange, submit return false, highlight border
+            if (span.innerHTML !== '') {
+                input[i].parentNode.appendChild(span);
+                errors = true;
+                run_onchange = true;
+                input[i].style.border = '1px solid #c6807b';
+                input[i].style.background = '#fffcf9';
+            }
+        }
+        
+        if (errors == false) {
+        }
+        return !errors;
+    }
+   
+    //chay ham valid()
+    var register = document.getElementById('submit');
+    register.onclick = function () {
+        return valid();
+    }
+
+    // Kiểm tra lỗi với sự kiện onchange -> gọi lại hàm valid()
+    for (var i = 0; i < input.length; i++) {
+        var id = input[i].getAttribute('id');
+        input[i].onchange = function () {
+            if (run_onchange == true) {
+                this.style.border = '1px solid #999';
+                this.style.background = '#fff';
+                valid();
+            }
+        }
+    }// end for
+</script>

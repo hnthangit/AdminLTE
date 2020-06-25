@@ -24,5 +24,8 @@
         /// Tên nhóm quản trị
         /// </summary>
         public string GroupName { get; set; }
+
+        public string ResetPasswordCode { get; set; }
+        public string Password { get; set; }
     }
 }

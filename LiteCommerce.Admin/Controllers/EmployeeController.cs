@@ -14,14 +14,14 @@ namespace LiteCommerce.Admin.Controllers
     public class EmployeeController : Controller
     {
         // GET: Employee
-        public ActionResult Index(int page = 1, string searchValue = "",string country="")
+        public ActionResult Index(int page = 1, string searchValue = "", string country = "")
         {
             var model = new Models.EmployeePaginationResult()
             {
                 Page = page,
                 PageSize = AppSetting.DefaultPageSize,
-                RowCount = HumanResourceBLL.Employee_Count(searchValue,country),
-                Data = HumanResourceBLL.Employee_List(page, AppSetting.DefaultPageSize, searchValue,country),
+                RowCount = HumanResourceBLL.Employee_Count(searchValue, country),
+                Data = HumanResourceBLL.Employee_List(page, AppSetting.DefaultPageSize, searchValue, country),
                 searchValue = searchValue,
                 country = country,
             };
@@ -54,7 +54,7 @@ namespace LiteCommerce.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Input(Employee data, HttpPostedFileBase files = null, string Email = "")
+        public ActionResult Input(Employee data, HttpPostedFileBase files = null)
         {
             if (data.Country == "null")
             {
@@ -121,24 +121,32 @@ namespace LiteCommerce.Admin.Controllers
             }
             if (data.EmployeeID == 0)
             {
-                bool result = AccountBLL.GetEmail(Email);
-                if (result)
+                bool IsEmailExist = AccountBLL.IsEmailExist(data.Email, data.EmployeeID);
+                if (IsEmailExist)
                 {
                     ModelState.AddModelError("errorEmailDuplicate", "Email đã tồn tại. Vui lòng nhập email khác!");
-                    return View();
+                    return View(data);
                 }
                 else
                 {
-                    
                     int employeeID = HumanResourceBLL.Employee_Add(data);
                     return RedirectToAction("Index");
                 }
             }
             else
             {
-                bool updateResult = HumanResourceBLL.Employee_Update(data);
-                return RedirectToAction("Index");
+                bool IsEmailExist = AccountBLL.IsEmailExist(data.Email, data.EmployeeID);
+                if (IsEmailExist)
+                {
+                    ModelState.AddModelError("errorEmailDuplicate", "Email đã tồn tại. Vui lòng nhập email khác!");
+                    return View(data);
+                }
+                else
+                {
+                    bool updateResult = HumanResourceBLL.Employee_Update(data);
+                }
             }
+            return RedirectToAction("Index");
         }
 
         public ActionResult Delete(string method = "", int[] employeeIDs = null)
@@ -148,6 +156,11 @@ namespace LiteCommerce.Admin.Controllers
                 HumanResourceBLL.Employee_Delete(employeeIDs);
             }
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Test()
+        {
+            return View();
         }
     }
 }

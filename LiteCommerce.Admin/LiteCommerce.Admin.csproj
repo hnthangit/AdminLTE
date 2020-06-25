@@ -177,6 +177,8 @@
     <Content Include="Views\Error\Permission.cshtml" />
     <Content Include="Views\Order\Detail.cshtml" />
     <Content Include="Views\Order\Input.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Employee\Test.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -92,7 +92,7 @@ namespace LiteCommerce.DataLayer.SqlServer
         /// </summary>
         /// <param name="searchValue"></param>
         /// <returns></returns>
-        public int Count(string searchValue,string country)
+        public int Count(string searchValue, string country)
         {
             int rowCount = 0;
             if (!string.IsNullOrEmpty(searchValue))
@@ -449,25 +449,54 @@ namespace LiteCommerce.DataLayer.SqlServer
             return data;
         }
 
-        public bool GetEmail(string email)
+        public bool IsEmailExist(string email, int employeeId)
         {
-            int rowsAffected = 0;
-            using (SqlConnection connection = new SqlConnection(this.connectionString))
+            if (employeeId <= 0)
             {
-                connection.Open();
+                int id = -1;
+                using (SqlConnection connection = new SqlConnection(this.connectionString))
+                {
+                    connection.Open();
 
-                SqlCommand cmd = new SqlCommand();
-                cmd.CommandText = @"select COUNT(*) from Employees where Email = @Email";
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = connection;
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = @"select EmployeeID from Employees where Email = @Email";
+                        cmd.CommandType = CommandType.Text;
+                        cmd.Connection = connection;
 
-                cmd.Parameters.AddWithValue("@Email", email);
+                        cmd.Parameters.AddWithValue("@Email", email);
 
-                rowsAffected = Convert.ToInt32(cmd.ExecuteNonQuery());
-
-                connection.Close();
+                        id = Convert.ToInt32(cmd.ExecuteScalar()); //lấy EmployeeID trong trường hợp tìm thấy
+                    }
+                    connection.Close();
+                }
+                return id > 0; // nếu email đã tồn tại trong hệ thống thì return true ngược lại return false
             }
-            return rowsAffected > 0;
+            else
+            {
+                Employee employee = Get(employeeId);
+                if (employee.Email == email) return false;
+                else
+                {
+                    int id;
+                    using (SqlConnection connection = new SqlConnection(this.connectionString))
+                    {
+                        connection.Open();
+
+                        using (SqlCommand cmd = new SqlCommand())
+                        {
+                            cmd.CommandText = @"select EmployeeID from Employees where Email = @Email";
+                            cmd.CommandType = CommandType.Text;
+                            cmd.Connection = connection;
+
+                            cmd.Parameters.AddWithValue("@Email", email);
+                            id = Convert.ToInt32(cmd.ExecuteScalar()); //lấy EmployeeID trong trường hợp tìm thấy
+                        }
+                        connection.Close();
+                    }
+                    return id > 0;
+                }
+            }
         }
     }
 }

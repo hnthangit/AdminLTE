@@ -181,7 +181,11 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Email</label>
-                                <input name="Email" value="@Model.Email" type="email" class="form-control" id="exampleInputPassword1" placeholder="Email">
+                                <input value="@Model.Email" type="email" class="form-control" id="exampleInputPassword1" placeholder="Email" disabled>
+                                <input name="Email" value="@Model.Email" type="hidden" class="form-control" id="exampleInputPassword1" placeholder="Email">
+                                <span style="color:red;">
+                                    @Html.ValidationMessage("errorEmailDuplicate1")
+                                </span>
                             </div>
                         </div>
 

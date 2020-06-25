@@ -14,6 +14,12 @@ namespace LiteCommerce.DataLayer.SqlServer
         {
             this.connectionString = connectionString;
         }
+
+        public bool AddResetCode(string email, string ResetPasswordCode)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Authorize nhân viên
         /// </summary>
@@ -25,5 +31,24 @@ namespace LiteCommerce.DataLayer.SqlServer
             throw new NotImplementedException();
         }
 
+        public bool ChangePassword(string userID, string newPass)
+        {
+            throw new NotImplementedException();
+        }
+
+        public UserAccount GetUserByResetPasswordCode(string resetCode)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsEmailExist(string emailID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public UserAccount User(string userID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -77,9 +77,9 @@ namespace LiteCommerce.BusiniessLayer
             return UserAccountDB.Authorize(username, password);
         }
 
-        public static bool GetEmail(string email)
+        public static bool IsEmailExist(string email, int employeeId)
         {
-            return EmployeeDB.GetEmail(email);
+            return EmployeeDB.IsEmailExist(email,employeeId);
         }
         #endregion Employee
     }

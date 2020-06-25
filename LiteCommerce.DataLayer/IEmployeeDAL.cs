@@ -49,7 +49,7 @@ namespace LiteCommerce.DataLayer
         /// </summary>
         /// <param name="email">Email nhập vào</param>
         /// <returns>true nếu đã tồn tại và ngược lại thì false</returns>
-        bool GetEmail(string email);
+        bool IsEmailExist(string email,int employeeId);
 
         /// <summary>
         /// Danh sách các nhân viên phân trang

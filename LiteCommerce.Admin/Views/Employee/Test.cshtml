@@ -1,0 +1,118 @@
+﻿@{
+    ViewBag.Title = "Test";
+}
+
+<div>
+    <div>
+        <form action="#" method="post" name="register">
+            <div class="form-group">
+                <label>Mã khách hàng</label>
+                <input class="form-control" name="makhachhang" id="makhachhang" placeholder="Nhập mã khách hàng" />
+            </div>
+
+            <div class="form-group">
+                <label>Tên khách hàng</label>
+                <input class="form-control" name="tenkhachhang" id="tenkhachhang" placeholder="Nhập tên khách hàng" />
+                <p id="password-error"> </p>
+            </div>
+            <div class="form-group">
+                <label>Địa chỉ</label>
+                <input class="form-control" name="diachi" id="diachi" placeholder="Nhập địa chỉ" />
+            </div>
+            <div class="form-group">
+                <label>Số điện thoại</label>
+                <input class="form-control" id="sodienthoai" name="sodienthoai" placeholder="Nhập số điện thoại" />
+            </div>
+            <div class="form-group">
+                <label>Địa chỉ email</label>
+                <input class="form-control" name="diachiemail" id="diachiemail" placeholder="Nhập địa chỉ email" />
+            </div>
+            <button type="submit" id="submit" name="btnSua" class="btn btn-default">Sửa khách hàng</button>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    //js valid
+    var input = document.forms['register'].getElementsByTagName('input');
+    var run_onchange = false;
+    function valid() {
+        var errors = false;
+        var reg_makhachhang = /(KH)(([0-9]{6})\b)/g;
+
+        var vnf_regex = /((090|091)+([0-9]{7})\b)/g;
+        var vnf_regex1 = /.(84)..((90|91)+([0-9]{7})\b)/g;
+        var vnf_regex2 = /(84)((90|91)+([0-9]{7})\b)/g;
+
+        for (var i = 0; i < input.length; i++) {
+            var value = input[i].value;
+            var id = input[i].getAttribute('id');
+            // creat spam save error info
+            var span = document.createElement('span');
+
+            // if span had exist -> remove
+            var p = input[i].parentNode;
+            if (p.lastChild.nodeName == 'SPAN') {
+                p.removeChild(p.lastChild);
+            }
+
+            //check null
+            if (value === '') {
+                span.innerHTML = 'Phải nhập ! Không được để trống bạn êi !!';
+
+            } else {
+
+                //check another error
+                if (id === 'makhachhang') {
+                    if (reg_makhachhang.test(value) == false) {
+                        span.innerHTML = 'Mã khách hàng bạn nhập không đúng rồi. Vui lòng nhâp theo mẫu KHxxxxxx';
+                    }
+                }
+
+                if (id === 'tenkhachhang') {
+                    if (value.length < 11 && value.length > 50) {
+                        span.innerHTML = 'Tên khách hàng không được ít hơn 6 kí tự và không được quá 50 kí tự !';
+                    }
+                }
+
+                if (id === 'sodienthoai') {
+                    if (vnf_regex.test(value) == true || vnf_regex1.test(value) == true || vnf_regex2.test(value) == true) {
+                    } else {
+                        span.innerHTML = 'Sai định dạng ! Bạn phải nhập đúng định dạng 090xxxxxxx hoặc 091xxxxxxx hoặc (84)+90xxxxxxx hoặc (84)+91xxxxxxx hoặc 8490xxxxxxx hoặc 8491xxxxxxx ';
+                    }
+                }
+
+            }
+
+            //neu co loi chen span vao ho so chay onchange, submit return false, highlight border
+            if (span.innerHTML !== '') {
+                input[i].parentNode.appendChild(span);
+                errors = true;
+                run_onchange = true;
+                input[i].style.border = '1px solid #c6807b';
+                input[i].style.background = '#fffcf9';
+            }
+
+        }//end for
+        if (errors == false) {
+        }
+        return !errors;
+    }//end valid()
+
+    //chay ham valid()
+    var register = document.getElementById('submit');
+    register.onclick = function () {
+        return valid();
+    }
+
+    // Kiểm tra lỗi với sự kiện onchange -> gọi lại hàm valid()
+    for (var i = 0; i < input.length; i++) {
+        var id = input[i].getAttribute('id');
+        input[i].onchange = function () {
+            if (run_onchange == true) {
+                this.style.border = '1px solid #999';
+                this.style.background = '#fff';
+                valid();
+            }
+        }
+    }// end for
+</script>
