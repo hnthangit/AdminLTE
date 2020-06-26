@@ -22,27 +22,28 @@ namespace LiteCommerce.Admin.Controllers
         /// <param name="searchValue"></param>
         /// <returns></returns>
         [Authorize]
-        public ActionResult Index(int page = 1, string searchValue = "", int categoryName=0, int companyName=0)
+        public ActionResult Index(int page = 1, string searchValue = "", int categoryName = 0, int companyName = 0)
         {
             var model = new Models.ProductPaginationResult()
             {
                 Page = page,
                 PageSize = AppSetting.DefaultPageSize,
-                RowCount = CatalogBLL.Product_Count(searchValue,categoryName,companyName),
+                RowCount = CatalogBLL.Product_Count(searchValue, categoryName, companyName),
                 Data = CatalogBLL.Product_List(page, AppSetting.DefaultPageSize, searchValue, categoryName, companyName),
                 searchValue = searchValue,
-                categoryName =categoryName,
+                categoryName = categoryName,
                 companyName = companyName,
             };
 
             return View(model);
         }
+
         public ActionResult Detail(string id = "")
         {
             if (!String.IsNullOrEmpty(id))
             {
                 Product model = CatalogBLL.GetProduct(Convert.ToInt32(id));
-                if(model == null)
+                if (model == null)
                 {
                     return RedirectToAction("Index", "Product");
                 }
@@ -57,6 +58,7 @@ namespace LiteCommerce.Admin.Controllers
                 return RedirectToAction("Index", "Product");
             }
         }
+
         /// <summary>
         ///
         /// </summary>
@@ -78,18 +80,18 @@ namespace LiteCommerce.Admin.Controllers
                 if (editProduct == null)
                     return RedirectToAction("Index");
                 ViewData["ProducAttribute"] = CatalogBLL.ProductAttribute_List(editProduct.ProductID);
-/*
-                if (model == null)
-                    return RedirectToAction("Index");*/
+                /*
+                                if (model == null)
+                                    return RedirectToAction("Index");*/
                 ViewBag.Title = "Edit Product";
                 return View(editProduct);
-                
             }
         }
+
         [HttpPost]
         public ActionResult Input(Product data, HttpPostedFileBase file = null)
         {
-            if(data.Descriptions == null)
+            if (data.Descriptions == null)
             {
                 data.Descriptions = "";
             }
@@ -102,9 +104,9 @@ namespace LiteCommerce.Admin.Controllers
                 data.PhotoPath = fileName;
                 file.SaveAs(path);
             }
-            if(data.ProductID == 0)
+            if (data.ProductID == 0)
             {
-                if(file == null)
+                if (file == null)
                 {
                     TempData["emptyFile"] = "Vui lòng chọn file";
                     return RedirectToAction("Input");
@@ -120,15 +122,15 @@ namespace LiteCommerce.Admin.Controllers
             else
             {
                 var getProduct = CatalogBLL.GetProduct(data.ProductID);
-                if(file == null)
+                if (file == null)
                 {
                     data.PhotoPath = getProduct.PhotoPath;
                 }
                 bool updateProduct = CatalogBLL.Product_Update(data);
                 return RedirectToAction("Index");
             }
-
         }
+
         public ActionResult Delete(int[] ProductIDs)
         {
             if (ProductIDs != null)
@@ -142,6 +144,7 @@ namespace LiteCommerce.Admin.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public ActionResult InputProductAttribute(ProductAttributes model)
         {
@@ -156,6 +159,7 @@ namespace LiteCommerce.Admin.Controllers
                 return RedirectToAction("Input", "Product", new { id = model.ProductID });
             }
         }
+
         [HttpPost]
         public ActionResult DeleteProductAttribute(int[] attributesIDs, string productID)
         {
@@ -165,6 +169,7 @@ namespace LiteCommerce.Admin.Controllers
             }
             return RedirectToAction("Input", "Product", new { @id = Convert.ToInt32(productID) });
         }
+
         public ActionResult Control(Product data)
         {
             try
@@ -189,11 +194,8 @@ namespace LiteCommerce.Admin.Controllers
 
                 #endregion Allow Null for Columns
 
-              
-                    int productId = CatalogBLL.Product_Add(data);
-                    return RedirectToAction("Input", "Product", new { @id = productId });
-                
-                
+                int productId = CatalogBLL.Product_Add(data);
+                return RedirectToAction("Input", "Product", new { @id = productId });
             }
             catch (Exception ex)
             {

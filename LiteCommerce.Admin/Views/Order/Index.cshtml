@@ -23,7 +23,9 @@
 
                             }
                         }
-                    </select>
+                        </select>
+                    
+                    
                 </div>
                 <div class="col-sm-2">
                     <select name="employeeId" class="form-control">
@@ -32,16 +34,17 @@
                         {
                             if (Model.employeeId == item.EmployeeID)
                             {
-                    <option value="@item.EmployeeID" selected>@item.LastName @item.FirstName</option>
+                                <option value="@item.EmployeeID" selected>@item.LastName @item.FirstName</option>
 
                             }
                             else
                             {
-                    <option value="@item.EmployeeID">@item.LastName @item.FirstName</option>
+                                <option value="@item.EmployeeID">@item.LastName @item.FirstName</option>
 
                             }
                         }
                     </select>
+                    
                 </div>
                 <div class="col-sm-3">
                     <select name="shipperId" class="form-control">
@@ -129,8 +132,8 @@
                             </td>
                             <td>
                                 <span class="std-block"><i class="fa fa-shopping-cart" style="font-size: 15px; color:#9b1c31">OrderDate:</i> @item.OrderDate.Day/@item.OrderDate.Month/@item.OrderDate.Year</span>
-                                <span class="std-block"><i class="fa fa-asterisk"style="font-size: 15px; color:#9b1c31">RequiredDate: </i> @item.RequiredDate.Day/@item.RequiredDate.Month/@item.RequiredDate.Year</span>
-                                <span class="std-block"><i class="fa fa-info"style="font-size: 15px; color:#9b1c31">ShippedDate: </i> @item.ShippedDate.Day/@item.ShippedDate.Month/@item.ShippedDate.Year</span>
+                                <span class="std-block"><i class="fa fa-asterisk" style="font-size: 15px; color:#9b1c31">RequiredDate: </i> @item.RequiredDate.Day/@item.RequiredDate.Month/@item.RequiredDate.Year</span>
+                                <span class="std-block"><i class="fa fa-info" style="font-size: 15px; color:#9b1c31">ShippedDate: </i> @item.ShippedDate.Day/@item.ShippedDate.Month/@item.ShippedDate.Year</span>
                             </td>
                             <td>
                                 @item.Freight

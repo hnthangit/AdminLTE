@@ -127,7 +127,7 @@ namespace LiteCommerce.Admin
                 list.Add(new SelectListItem()
                 {
                     Value = employee.EmployeeID.ToString(),
-                    Text = employee.FirstName + employee.LastName
+                    Text = employee.LastName + employee.FirstName,
                 });
             }
             return list;

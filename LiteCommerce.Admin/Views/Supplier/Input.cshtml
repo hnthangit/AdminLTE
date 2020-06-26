@@ -5,7 +5,7 @@
 <div class="box box-info">
     <div class="box-body">
 
-        <form role="form" action="~/Supplier/Input" method="post">
+        <form role="form" action="~/Supplier/Input" method="post" name="register">
 
             <div class="box-body row">
                 <div class="col-sm-6">
@@ -13,6 +13,9 @@
                         @Html.Hidden("SupplierID", Model.SupplierID)
                         <label for="exampleInputPassword1">Company Name <span style="color:red;">(*)</span></label>
                         @Html.TextBox("CompanyName", Model.CompanyName, new { placeholder = "Enter Contact Company", @class = "form-control" })
+                        <span style="color:red;">
+                            @Html.ValidationMessage("ErrorCompanyName")
+                        </span>
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
@@ -94,7 +97,7 @@
                     </div>
                 </div>
             </div>
-            @Html.ValidationSummary()
+
             <!-- /.box-body -->
 
             <div class="box-footer pull-right">

@@ -1,36 +1,94 @@
 ﻿@model LiteCommerce.DomainModels.Category
 @{
-    
+
 }
 
-    <div class="box box-info">
-        <div class="box-body">
+<div class="box box-info">
+    <div class="box-body">
 
-
-            <form role="form" action="~/Category/Input" method="post">
-                <div class="box-body">
-                    <input type="hidden" name="CategoryID" value="@Model.CategoryID" />
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Category Name</label>
-                        <input type="text" name="CategoryName" class="form-control" id="exampleInputPassword1" placeholder="Enter Category Name" value="@Model.CategoryName">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Dercription</label>
-                        <input type="text" name="Description" class="form-control" id="exampleInputPassword1" placeholder="Enter Dercription" value="@Model.Description">
-                    </div>
-
-
-
+        <form role="form" action="~/Category/Input" method="post" name="register">
+            <div class="box-body">
+                @Html.Hidden("CategoryID", Model.CategoryID)
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Category Name</label>
+                    @Html.TextBox("CategoryName", Model.CategoryName, new { placeholder = "Enter Category Name", @class = "form-control" })
+                    <span style="color:red;">
+                        @Html.ValidationMessage("ErrorCategoryName")
+                    </span>
                 </div>
-                @Html.ValidationSummary()
-                <!-- /.box-body -->
 
-                <div class="box-footer pull-right">
-                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Save</button>
-                    <button type="reset" class="btn btn-white"><i class="fa fa-reset"></i>Cancel</button>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Dercription</label>
+                    @Html.TextBox("Description", Model.Description, new { placeholder = "Enter Description", @class = "form-control" })
                 </div>
-            </form>
-        </div>
+            </div>
+            <!-- /.box-body -->
+
+            <div class="box-footer pull-right">
+                <button type="submit" id="submit" name="submit" class="btn btn-primary"><i class="fa fa-save"></i>Save</button>
+                <button type="reset" class="btn btn-white"><i class="fa fa-reset"></i>Cancel</button>
+            </div>
+        </form>
     </div>
+</div>
+<script type="text/javascript">
+    var input = document.forms['register'].getElementsByTagName('input');
+    var run_onchange = false;
+    function valid() {
+        var errors = false;
 
+        for (var i = 0; i < input.length; i++) {
+            var value = input[i].value;
+            var id = input[i].getAttribute('id');
+            // creat spam save error info
+            var span = document.createElement('span');
+
+            // if span had exist -> remove
+            var p = input[i].parentNode;
+            if (p.lastChild.nodeName == 'SPAN') {
+                p.removeChild(p.lastChild);
+            }
+            //check null
+            if (value === '' & id === 'CategoryName') {
+                span.innerHTML = 'This element is required';
+
+            } else {
+                if (id === 'CategoryName') {
+                    if (value.length > 15) {
+                        span.innerHTML = 'Max length of Category Name is 15 character';
+                    }
+                }
+            }
+            //neu co loi chen span vao ho so chay onchange, submit return false, highlight border
+            if (span.innerHTML !== '') {
+                input[i].parentNode.appendChild(span);
+                errors = true;
+                run_onchange = true;
+                input[i].style.border = '1px solid #c6807b';
+                input[i].style.background = '#fffcf9';
+            }
+        }
+
+        if (errors == false) {
+        }
+        return !errors;
+    }
+
+    //chay ham valid()
+    var register = document.getElementById('submit');
+    register.onclick = function () {
+        return valid();
+    }
+
+    // Kiểm tra lỗi với sự kiện onchange -> gọi lại hàm valid()
+    for (var i = 0; i < input.length; i++) {
+        var id = input[i].getAttribute('id');
+        input[i].onchange = function () {
+            if (run_onchange == true) {
+                this.style.border = '1px solid #999';
+                this.style.background = '#fff';
+                valid();
+            }
+        }
+    }// end for
+</script>

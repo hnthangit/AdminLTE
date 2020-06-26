@@ -4,19 +4,19 @@
 }
 <div class="box box-primary">
 
-    <form action="~/Product/Input" method="post" enctype="multipart/form-data">
+    <form action="~/Product/Input" method="post" enctype="multipart/form-data" name="register">
         <div class="box-body">
             <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                 <h4 style="font-weight: 600">Information Product</h4>
                 <a href="~/Product" style="margin-right: 10px;" class="pull-right">Back to list</a>
             </div>
-            <span style="color: red">@TempData["emptyFile"]</span>
+
             <div class="row">
-                <input type="hidden" name="ProductID" value="@Model.ProductID" />
+                @Html.Hidden("ProductID", Model.ProductID)
                 <div class="col-sm-12">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Product Name</label>
-                        <input type="text" required class="form-control" id="exampleInputPassword1" placeholder="Product Name" name="ProductName" value="@Model.ProductName">
+                        @Html.TextBox("ProductName", Model.ProductName, new { placeholder = "Enter Product Name", @class = "form-control" })
                     </div>
                 </div>
                 <div class="col-sm-6">
@@ -58,30 +58,31 @@
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Quantity Per Unit</label>
-                        <input required type="text" class="form-control" id="exampleInputPassword1" placeholder="Quantity Per Unit" name="QuantityPerUnit" value="@Model.QuantityPerUnit">
+                        @Html.TextBox("QuantityPerUnit", Model.QuantityPerUnit, new { placeholder = "Enter Quantity Per Unit", @class = "form-control" })
                     </div>
                 </div>
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Unit Price</label>
-                        <input required type="number" class="form-control" id="exampleInputPassword1" name="UnitPrice" value="@Model.UnitPrice">
+                        @Html.TextBox("UnitPrice", Model.UnitPrice, new { placeholder = "Enter Unit Price", @class = "form-control" })
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Photo Path</label>
                         <input type="file" class="form-control" value="@Model.PhotoPath" id="exampleInputPassword1" name="file" accept="image/x-png, image/gif, image/jpeg">
+                        <span style="color: red">@TempData["emptyFile"]</span>
                     </div>
                 </div>
                 <div class="col-sm-12">
                     <div class="form-group">
                         <label for="exampleInputPassword1">Description</label>
-                        <textarea required class="form-control" rows="10" placeholder="Description" name="Descriptions">@Model.Descriptions</textarea>
+                        @Html.TextArea("Descriptions", Model.Descriptions, new { placeholder = "Enter Descriptions", @class = "form-control" })
                     </div>
                 </div>
             </div>
             <div class="col-sm-12">
-                <button type="submit" style="margin-right: 10px" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+                <button type="submit" id="submit" name="submit" style="margin-right: 10px" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
                 <a href="~/Product" class="btn btn-danger">Cancel</a>
             </div>
         </div>
@@ -147,7 +148,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="~/Product/InputProductAttribute" method="post">
+            <form action="~/Product/InputProductAttribute" method="post" name="add">
                 <div class="modal-body">
                     <input type="hidden" name="AttributeID" value="0" />
                     <input type="hidden" name="ProductID" value="@Model.ProductID" />
@@ -185,21 +186,21 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="~/Product/InputProductAttribute" method="post">
+                    <form action="~/Product/InputProductAttribute" method="post" name="edit">
                         <div class="modal-body">
                             <input type="hidden" class="AttributeID" name="AttributeID" value="@item.AttributeID" />
                             <input type="hidden" class="ProductID" name="ProductID" value="@Model.ProductID" />
                             <div class="form-group">
                                 <label>Attribute Name </label>
-                                <input class="AttributeName form-control" type="text" name="AttributeName" value="@item.AttributeName" />
+                                <input class="form-control" type="text" name="AttributeName" value="@item.AttributeName" />
                             </div>
                             <div class="form-group">
                                 <label>Attribute Value</label>
-                                <input class="AttributeValue form-control" type="text" name="AttributeValues" value="@item.AttributeValues" />
+                                <input class="form-control" type="text" name="AttributeValues" value="@item.AttributeValues" />
                             </div>
                             <div class="form-group">
                                 <label>Display Order</label>
-                                <input class="DisplayOrder form-control" type="number" name="DisplayOrder" value="@item.DisplayOrder" />
+                                <input class="form-control" type="number" name="DisplayOrder" value="@item.DisplayOrder" />
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -212,3 +213,71 @@
         </div>
     }
 }
+<script type="text/javascript">
+    var input = document.forms['register'].getElementsByTagName('input');
+    var run_onchange = false;
+    function valid() {
+        var errors = false;
+
+        for (var i = 0; i < input.length; i++) {
+            var value = input[i].value;
+            var id = input[i].getAttribute('id');
+            // creat spam save error info
+            var span = document.createElement('span');
+
+            // if span had exist -> remove
+            var p = input[i].parentNode;
+            if (p.lastChild.nodeName == 'SPAN') {
+                p.removeChild(p.lastChild);
+            }
+            //check null
+            if (value === '' & id === 'ProductName') {
+                span.innerHTML = 'This element is required';
+
+            } else {
+                if (id === 'ProductName') {
+                    if (value.length > 40) {
+                        span.innerHTML = 'Max length of Product Name is 40 character';
+                    }
+                }
+                //check another error
+                if (id === 'QuantityPerUnit') {
+                    if (value.length > 20) {
+                        span.innerHTML = 'Max length of Quantity Per Unit is 20 character';
+                    }
+                }
+
+            }
+            //neu co loi chen span vao ho so chay onchange, submit return false, highlight border
+            if (span.innerHTML !== '') {
+                input[i].parentNode.appendChild(span);
+                errors = true;
+                run_onchange = true;
+                input[i].style.border = '1px solid #c6807b';
+                input[i].style.background = '#fffcf9';
+            }
+        }
+
+        if (errors == false) {
+        }
+        return !errors;
+    }
+
+    //chay ham valid()
+    var register = document.getElementById('submit');
+    register.onclick = function () {
+        return valid();
+    }
+
+    // Kiểm tra lỗi với sự kiện onchange -> gọi lại hàm valid()
+    for (var i = 0; i < input.length; i++) {
+        var id = input[i].getAttribute('id');
+        input[i].onchange = function () {
+            if (run_onchange == true) {
+                this.style.border = '1px solid #999';
+                this.style.background = '#fff';
+                valid();
+            }
+        }
+    }// end for
+</script>
