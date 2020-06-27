@@ -58,6 +58,11 @@ namespace LiteCommerce.Admin.Controllers
             }
         }
 
+        /// <summary>
+        /// Thêm hoặc sửa một shipper
+        /// </summary>
+        /// <param name="collection"></param>
+        /// <returns></returns>
         public ActionResult InsertOrUpdate(FormCollection collection)
         {
             Shipper data = new Shipper();
@@ -75,6 +80,12 @@ namespace LiteCommerce.Admin.Controllers
             return RedirectToAction("Index", "Shipper");
         }
 
+        /// <summary>
+        /// Xóa một hoặc nhiều shipper
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="shipperIDs"></param>
+        /// <returns></returns>
         public ActionResult Delete(string method = "", int[] shipperIDs = null)
         {
             if(shipperIDs != null)

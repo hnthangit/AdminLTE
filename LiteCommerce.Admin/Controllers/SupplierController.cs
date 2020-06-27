@@ -58,7 +58,7 @@ namespace LiteCommerce.Admin.Controllers
         }
 
         /// <summary>
-        ///
+        /// Xử lý Add or Edit
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -135,7 +135,7 @@ namespace LiteCommerce.Admin.Controllers
         }
 
         /// <summary>
-        ///
+        /// Xóa một hoặc nhiều shipper
         /// </summary>
         /// <param name="method"></param>
         /// <param name="supplierIDs"></param>

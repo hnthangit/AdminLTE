@@ -77,6 +77,12 @@ namespace LiteCommerce.BusiniessLayer
             return UserAccountDB.Authorize(username, password);
         }
 
+        /// <summary>
+        /// Kiểm tra email đã tồn tại hay chưa
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
         public static bool IsEmailExist(string email, int employeeId)
         {
             return EmployeeDB.IsEmailExist(email,employeeId);

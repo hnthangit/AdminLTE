@@ -32,7 +32,7 @@ namespace LiteCommerce.Admin.Controllers
         }
 
         /// <summary>
-        ///
+        /// 
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -56,6 +56,11 @@ namespace LiteCommerce.Admin.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Input(Customer data)
         {
@@ -121,6 +126,12 @@ namespace LiteCommerce.Admin.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="customerIDs"></param>
+        /// <returns></returns>
         public ActionResult Delete(string method = "", int[] customerIDs = null)
         {
             if (customerIDs != null)

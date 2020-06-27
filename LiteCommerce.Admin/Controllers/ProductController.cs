@@ -60,7 +60,7 @@ namespace LiteCommerce.Admin.Controllers
         }
 
         /// <summary>
-        ///
+        /// Thêm hoặc sửa một sản phẩm
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -88,6 +88,12 @@ namespace LiteCommerce.Admin.Controllers
             }
         }
 
+        /// <summary>
+        /// Xử lý việc thêm hoặc sửa một sản phẩm
+        /// </summary>
+        /// <param name="data">Dữ liệu của một sản phẩm</param>
+        /// <param name="file">File ảnh</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Input(Product data, HttpPostedFileBase file = null)
         {
@@ -131,6 +137,11 @@ namespace LiteCommerce.Admin.Controllers
             }
         }
 
+        /// <summary>
+        /// Xóa một hay nhiều sản phẩm
+        /// </summary>
+        /// <param name="ProductIDs"></param>
+        /// <returns></returns>
         public ActionResult Delete(int[] ProductIDs)
         {
             if (ProductIDs != null)
@@ -140,11 +151,21 @@ namespace LiteCommerce.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Xử lý thêm một thuộc tính sản phẩm
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult AddProductAttribute(string id = "")
         {
             return View();
         }
 
+        /// <summary>
+        /// Thêm hoặc sửa một thuộc tính của sản phẩm
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult InputProductAttribute(ProductAttributes model)
         {
@@ -160,6 +181,12 @@ namespace LiteCommerce.Admin.Controllers
             }
         }
 
+        /// <summary>
+        /// Xóa một hoặc nhiều thuộc tính của sản phẩm
+        /// </summary>
+        /// <param name="attributesIDs"></param>
+        /// <param name="productID"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult DeleteProductAttribute(int[] attributesIDs, string productID)
         {
@@ -170,40 +197,12 @@ namespace LiteCommerce.Admin.Controllers
             return RedirectToAction("Input", "Product", new { @id = Convert.ToInt32(productID) });
         }
 
-        public ActionResult Control(Product data)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(data.ProductName))
-                    ModelState.AddModelError("ErrorProductName", "Product Name is required");
-
-                #region Allow Null for Columns
-
-                if (string.IsNullOrEmpty(data.QuantityPerUnit))
-                {
-                    data.QuantityPerUnit = "";
-                }
-                if (string.IsNullOrEmpty(data.Descriptions))
-                {
-                    data.Descriptions = "";
-                }
-                if (string.IsNullOrEmpty(data.PhotoPath))
-                {
-                    data.PhotoPath = "";
-                }
-
-                #endregion Allow Null for Columns
-
-                int productId = CatalogBLL.Product_Add(data);
-                return RedirectToAction("Input", "Product", new { @id = productId });
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", ex.Message + ":" + ex.StackTrace);
-                return View(data);
-            }
-        }
-
+        /// <summary>
+        /// Xóa một hoặc nhiều sản phẩm
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="productIDs"></param>
+        /// <returns></returns>
         public ActionResult Delete(string method = "", int[] productIDs = null)
         {
             if (productIDs != null)

@@ -31,6 +31,11 @@ namespace LiteCommerce.Admin.Controllers
             return View(model);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Detail(string id = "")
         {
             if (!String.IsNullOrEmpty(id))
@@ -52,6 +57,11 @@ namespace LiteCommerce.Admin.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Input(string id = "")
         {
@@ -74,6 +84,11 @@ namespace LiteCommerce.Admin.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Input(Order data)
         {
@@ -101,6 +116,11 @@ namespace LiteCommerce.Admin.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="orderIDs"></param>
+        /// <returns></returns>
         public ActionResult Delete(int[] orderIDs)
         {
             if(orderIDs != null)

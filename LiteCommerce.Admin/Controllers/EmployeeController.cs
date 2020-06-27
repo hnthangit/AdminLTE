@@ -53,6 +53,12 @@ namespace LiteCommerce.Admin.Controllers
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="files"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Input(Employee data, HttpPostedFileBase files = null)
         {
@@ -149,6 +155,12 @@ namespace LiteCommerce.Admin.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="method"></param>
+        /// <param name="employeeIDs"></param>
+        /// <returns></returns>
         public ActionResult Delete(string method = "", int[] employeeIDs = null)
         {
             if (employeeIDs != null)
@@ -158,9 +170,5 @@ namespace LiteCommerce.Admin.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult Test()
-        {
-            return View();
-        }
     }
 }

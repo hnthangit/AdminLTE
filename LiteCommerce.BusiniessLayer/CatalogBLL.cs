@@ -558,6 +558,12 @@ namespace LiteCommerce.BusiniessLayer
         #endregion Order
 
         #region OrderDetail
+
+        /// <summary>
+        /// Danh sách orderdetail
+        /// </summary>
+        /// <param name="orderID"></param>
+        /// <returns></returns>
         public static List<OrderDetail> OrderDetails_List(int orderID)
         {
             return OrderDetailDB.List(orderID);

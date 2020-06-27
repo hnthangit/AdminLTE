@@ -449,6 +449,12 @@ namespace LiteCommerce.DataLayer.SqlServer
             return data;
         }
 
+        /// <summary>
+        /// Kiểm tra email đã tồn tại hay không
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="employeeId"></param>
+        /// <returns></returns>
         public bool IsEmailExist(string email, int employeeId)
         {
             if (employeeId <= 0)

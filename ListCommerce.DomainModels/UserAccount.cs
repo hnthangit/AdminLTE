@@ -25,7 +25,14 @@
         /// </summary>
         public string GroupName { get; set; }
 
+        /// <summary>
+        /// Mã đặt lại mật khẩu
+        /// </summary>
         public string ResetPasswordCode { get; set; }
+
+        /// <summary>
+        /// Mật khẩu của account
+        /// </summary>
         public string Password { get; set; }
     }
 }
