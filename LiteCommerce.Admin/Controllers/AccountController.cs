@@ -1,8 +1,10 @@
 ﻿using LiteCommerce.BusiniessLayer;
 using LiteCommerce.DomainModels;
 using System;
+using System.IO;
 using System.Net;
 using System.Net.Mail;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -333,7 +335,7 @@ namespace LiteCommerce.Admin.Controllers
         /// <param name="data"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult ChangeInfo(Employee data)
+        public ActionResult ChangeInfo(Employee data, HttpPostedFileBase fileImage = null)
         {
             if (data != null)
             {
@@ -341,6 +343,20 @@ namespace LiteCommerce.Admin.Controllers
                 data.PhotoPath = getEmployee.PhotoPath;
                 data.Password = getEmployee.Password;
                 data.Notes = getEmployee.Notes;
+
+                if (fileImage != null)
+                {
+                    string get = DateTime.Now.ToString("ddMMyyyhhmmss");
+                    string fileExtension = Path.GetExtension(fileImage.FileName);
+                    string fileName = get + fileExtension;
+                    string path = Path.Combine(Server.MapPath("~/Images"), fileName);
+                    data.PhotoPath = fileName;
+                    fileImage.SaveAs(path);
+                }
+                if (fileImage == null)
+                {
+                    data.PhotoPath = getEmployee.PhotoPath;
+                }
 
                 bool IsEmailExist = AccountBLL.IsEmailExist(getEmployee.Email, getEmployee.EmployeeID);
                 if (IsEmailExist)
@@ -355,5 +371,6 @@ namespace LiteCommerce.Admin.Controllers
             }
             return RedirectToAction("Index");
         }
+
     }
 }
