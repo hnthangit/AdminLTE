@@ -103,7 +103,7 @@ namespace LiteCommerce.DataLayer.SqlServer
                 connection.Open();
                 using (SqlCommand cmd = new SqlCommand())  //tao doi tuong command chua 1 cau lenh dung de thuc thi yeu cau truy van du lieu
                 {
-                    cmd.CommandText = "select COUNT(*) from Employees where ((@searchValue = N'') or (FirstName like @searchValue)) and ((@country = N'') or (Country = @Country))";
+                    cmd.CommandText = "select COUNT(*) from Employees where ((@searchValue = N'') or (FirstName like @searchValue) or (LastName like @searchValue)) and ((@country = N'') or (Country = @Country))";
                     cmd.CommandType = CommandType.Text; //cho biet lenh thuc thi la lenh dang gi
                     cmd.Connection = connection;
 
@@ -215,7 +215,7 @@ namespace LiteCommerce.DataLayer.SqlServer
 	                                        select * ,
 			                                        ROW_NUMBER() over(order by EmployeeID) as RowNumber
 	                                        from	Employees
-	                                        where	((@searchValue = N'') or (LastName like @searchValue)) and
+	                                        where	((@searchValue = N'') or (LastName like @searchValue) or (FirstName like @searchValue)) and
                                                     ((@country = N'') or (Country = @Country))
                                         ) as t
                                         where t.RowNumber between (@page -1) * @pageSize + 1 and @page * @pageSize

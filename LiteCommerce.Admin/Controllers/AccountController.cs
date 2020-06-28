@@ -186,9 +186,9 @@ namespace LiteCommerce.Admin.Controllers
             }
             else
             {
-                subject = "Forgot your LiteCommerce password";
+                subject = "Forgot your password || LiteCommerce";
 
-                body = "<br/><br/>Click vào link bên dưới để đến trang reset password" +
+                body = "<br/><br/>Click vào link bên dưới để xác nhận đổi mật khẩu" +
                    " <br/><br/><a href='" + link + "'>" + link + "</a> ";
             }
 
@@ -283,7 +283,7 @@ namespace LiteCommerce.Admin.Controllers
             }
             else
             {
-                return HttpNotFound();
+                return RedirectToAction("ErrorRessetCode","Error");
             }
         }
 

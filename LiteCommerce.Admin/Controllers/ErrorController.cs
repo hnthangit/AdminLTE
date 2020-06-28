@@ -29,5 +29,10 @@ namespace LiteCommerce.Admin.Controllers
         {
             return View();
         }
+
+        public ActionResult ErrorRessetCode()
+        {
+            return View();
+        }
     }
 }

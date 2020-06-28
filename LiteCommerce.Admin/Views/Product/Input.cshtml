@@ -71,7 +71,7 @@
                     <div class="form-group">
                         <label for="exampleInputPassword1">Photo Path</label>
                         <label for="image" style="width: 100%; cursor: pointer" title="Click vào đây để đổi ảnh (Kích thước 128KB)">
-                            <img src="~/Images/@Model.PhotoPath" class="img-thumbnail _avatar" style="width:100%; height:100%;" alt="Alternate Text" />
+                            <img src="~/Images/@Model.PhotoPath" class="img-thumbnail _avatar" style="width:100px;" alt="Alternate Text" />
                         </label>
                         <input type="file" style="display: none" name="file" value="" id="image" accept="image/x-png, image/gif, image/jpeg" />
                         <span style="color: red">@TempData["emptyFile"]</span>
@@ -154,14 +154,14 @@
             <form action="~/Product/InputProductAttribute" method="post" name="add">
                 <div class="modal-body">
                     <input type="hidden" name="AttributeID" value="0" />
-                    <input type="hidden" name="ProductID" value="@Model.ProductID" />
+                    <input type="hidden" name="ProductID" value="@Model.ProductID" required />
                     <div class="form-group">
                         <label>Attribute Name </label>
-                        <input class="form-control" type="text" name="AttributeName" value="" />
+                        <input class="form-control" type="text" name="AttributeName" value="" required/>
                     </div>
                     <div class="form-group">
                         <label>Attribute Value</label>
-                        <input class="form-control" type="text" name="AttributeValues" value="" />
+                        <input class="form-control" type="text" name="AttributeValues" value="" required/>
                     </div>
                     <div class="form-group">
                         <label>Display Order</label>
@@ -195,15 +195,15 @@
                             <input type="hidden" class="ProductID" name="ProductID" value="@Model.ProductID" />
                             <div class="form-group">
                                 <label>Attribute Name </label>
-                                <input class="form-control" type="text" name="AttributeName" value="@item.AttributeName" />
+                                <input class="form-control" type="text" name="AttributeName" value="@item.AttributeName" required/>
                             </div>
                             <div class="form-group">
                                 <label>Attribute Value</label>
-                                <input class="form-control" type="text" name="AttributeValues" value="@item.AttributeValues" />
+                                <input class="form-control" type="text" name="AttributeValues" value="@item.AttributeValues" required/>
                             </div>
                             <div class="form-group">
                                 <label>Display Order</label>
-                                <input class="form-control" type="number" name="DisplayOrder" value="@item.DisplayOrder" />
+                                <input class="form-control" type="number" name="DisplayOrder" value="@item.DisplayOrder" required/>
                             </div>
                         </div>
                         <div class="modal-footer">
